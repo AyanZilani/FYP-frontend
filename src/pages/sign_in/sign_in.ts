@@ -15,9 +15,7 @@ export class Sign_inPage {
 
   login: any = { user_email: '', user_password: '' };
 
-  constructor(public navCtrl: NavController, private http: HttpClient, public alrt: AlertController, private api: EbikeApiProvider) {
-
-  }
+  constructor(public navCtrl: NavController, private http: HttpClient, public alrt: AlertController, private api: EbikeApiProvider) { }
 
   sign_up() {
     this.navCtrl.push(Sign_upPage)

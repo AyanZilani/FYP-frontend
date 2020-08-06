@@ -2,8 +2,11 @@ import moment from "moment";
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
+
 @Injectable()
 export class EbikeApiProvider {
+
+    bike: any = { bike_number: '', bike_status: '' };
 
     baseURL = "http://192.168.1.25:3000/api/";
 
@@ -25,4 +28,35 @@ export class EbikeApiProvider {
             startDate: moment(trip.startDate),
         });
     }
+
+    selectEndDate(trip) {
+        return this.http.post(this.baseURL + 'endDates', {
+            endDate: trip.endDate
+        })
+    }
+
+    getAvailableBikes(done: Function) {
+
+        let filter = {
+            where: {
+                bike_status: 'available'
+            }
+        }
+        this.http.get(this.baseURL + 'bikes?filter=' + JSON.stringify(filter))
+            .subscribe(
+                (response) => {
+                    this.bike = response;
+                    console.log(this.bike);
+                    done();
+                },
+                error => {
+                    console.log(error)
+                }
+            )
+    }
+
+    getFetchedData() {
+        return this.bike;
+    }
+
 }

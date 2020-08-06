@@ -21,16 +21,16 @@
         <ion-row>
             <ion-col col>
                 <h4>{{'trip_start' | translate}}</h4>
-                <h2>Sat, 15 Jun </h2>
-                <h3>5:30 pm</h3>
+                <h2>{{_startedDate}} </h2>
+                <h3>{{_startedTime}}</h3>
             </ion-col>
             <ion-col col class="trevl_time">
-                <h3>77 Hours</h3>
+                <h3>{{_duration}} Hours</h3>
             </ion-col>
             <ion-col col text-end>
                 <h4>{{'trip_end' | translate}}</h4>
-                <h2>Sat, 18 Jun </h2>
-                <h3>10:30 pm</h3>
+                <h2>{{_stopDate}} </h2>
+                <h3>{{_stopTime}}</h3>
             </ion-col>
         </ion-row>
     </div>
@@ -50,7 +50,7 @@
         </ion-row>
     </div>
 
-   <!---- <div class="container">
+    <!---- <div class="container">
         <h4>{{'pick_up_location' | translate}}</h4>
         <ion-row>
             <ion-col col-3>

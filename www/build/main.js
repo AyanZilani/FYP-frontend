@@ -39,10 +39,11 @@ var My_bookingsPage = /** @class */ (function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Select_end_datePage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__home_home__ = __webpack_require__(30);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return EbikeApiProvider; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_moment__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_moment__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common_http__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__(0);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -55,21 +56,105 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+var EbikeApiProvider = /** @class */ (function () {
+    function EbikeApiProvider(http) {
+        this.http = http;
+        this.bike = { bike_number: '', bike_status: '' };
+        this.baseURL = "http://192.168.1.25:3000/api/";
+        console.log('EbikeApiProvider initiated!');
+    }
+    EbikeApiProvider.prototype.signIn = function (login) {
+        console.log("Signing in ....", login);
+        return this.http.post(this.baseURL + 'Users/login', {
+            email: login.user_email,
+            password: login.user_password
+        });
+    };
+    ;
+    EbikeApiProvider.prototype.selectStartDate = function (trip) {
+        return this.http.post(this.baseURL + 'startDates', {
+            startDate: __WEBPACK_IMPORTED_MODULE_0_moment___default()(trip.startDate),
+        });
+    };
+    EbikeApiProvider.prototype.selectEndDate = function (trip) {
+        return this.http.post(this.baseURL + 'endDates', {
+            endDate: trip.endDate
+        });
+    };
+    EbikeApiProvider.prototype.getAvailableBikes = function (done) {
+        var _this = this;
+        var filter = {
+            where: {
+                bike_status: 'available'
+            }
+        };
+        this.http.get(this.baseURL + 'bikes?filter=' + JSON.stringify(filter))
+            .subscribe(function (response) {
+            _this.bike = response;
+            console.log(_this.bike);
+            done();
+        }, function (error) {
+            console.log(error);
+        });
+    };
+    EbikeApiProvider.prototype.getFetchedData = function () {
+        return this.bike;
+    };
+    EbikeApiProvider = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["A" /* Injectable */])(),
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_common_http__["a" /* HttpClient */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_common_http__["a" /* HttpClient */]) === "function" && _a || Object])
+    ], EbikeApiProvider);
+    return EbikeApiProvider;
+    var _a;
+}());
+
+//# sourceMappingURL=ebike-api.js.map
+
+/***/ }),
+
+/***/ 107:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Select_end_datePage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__home_home__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_common_http__ = __webpack_require__(27);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
 var Select_end_datePage = /** @class */ (function () {
-    function Select_end_datePage(navCtrl) {
+    function Select_end_datePage(navCtrl, http) {
         this.navCtrl = navCtrl;
+        this.http = http;
         this.event = {
             timeStarts: '10:30',
         };
+        this.trip = { endDate: 'YYYY-MM-DD HH:mm:ss' };
     }
     Select_end_datePage.prototype.home = function () {
+        console.log("Selecting End date ....", this.trip);
+        this.http.post('http://localhost:3000/api/endDates', {
+            endDate: this.trip.endDate,
+        }).subscribe(function (response) { console.log(response); }, function (error) { console.log(error); });
         this.navCtrl.setRoot(__WEBPACK_IMPORTED_MODULE_2__home_home__["a" /* HomePage */]);
     };
     Select_end_datePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
             selector: 'page-select_end_date',template:/*ion-inline-start:"E:\Workspace\gitlab\ebike\frontend\src\pages\select_end_date\select_end_date.html"*/'<ion-header>\n    <ion-navbar>\n        <button ion-button menuToggle>\n            <ion-icon name="menu"></ion-icon>\n        </button>\n        <ion-title>{{\'select_end_date\' | translate}}</ion-title>\n    </ion-navbar>\n</ion-header>\n\n<ion-content class="bg-color">\n    <div class="calendar_box">\n        <ion-calendar #calendar lang="en"></ion-calendar>\n    </div>\n\n    <div class="select_date">\n        <h2>{{\'select_trip_end_time\' | translate}}</h2>\n        <ion-datetime displayFormat="h:mm A" pickerFormat="YYYY-MM-DD HH:mm:ss" [(ngModel)]="trip.endDate"></ion-datetime>\n        <h3>{{\'tab_to_select\' | translate}}</h3>\n    </div>\n</ion-content>\n<ion-footer no-border>\n   <button ion-button  no-margin full class="btn" (click)="home()">{{\'continue\' | translate}}</button>\n</ion-footer>'/*ion-inline-end:"E:\Workspace\gitlab\ebike\frontend\src\pages\select_end_date\select_end_date.html"*/
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */], __WEBPACK_IMPORTED_MODULE_3__angular_common_http__["a" /* HttpClient */]])
     ], Select_end_datePage);
     return Select_end_datePage;
 }());
@@ -78,7 +163,7 @@ var Select_end_datePage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 118:
+/***/ 119:
 /***/ (function(module, exports) {
 
 function webpackEmptyAsyncContext(req) {
@@ -91,11 +176,11 @@ function webpackEmptyAsyncContext(req) {
 webpackEmptyAsyncContext.keys = function() { return []; };
 webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
 module.exports = webpackEmptyAsyncContext;
-webpackEmptyAsyncContext.id = 118;
+webpackEmptyAsyncContext.id = 119;
 
 /***/ }),
 
-/***/ 161:
+/***/ 162:
 /***/ (function(module, exports) {
 
 function webpackEmptyAsyncContext(req) {
@@ -108,22 +193,23 @@ function webpackEmptyAsyncContext(req) {
 webpackEmptyAsyncContext.keys = function() { return []; };
 webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
 module.exports = webpackEmptyAsyncContext;
-webpackEmptyAsyncContext.id = 161;
+webpackEmptyAsyncContext.id = 162;
 
 /***/ }),
 
-/***/ 30:
+/***/ 31:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HomePage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__select_city_select_city__ = __webpack_require__(337);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__select_start_date_select_start_date__ = __webpack_require__(339);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__select_end_date_select_end_date__ = __webpack_require__(106);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__car_list_car_list__ = __webpack_require__(340);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__angular_common_http__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_api_ebike_api__ = __webpack_require__(106);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__select_city_select_city__ = __webpack_require__(344);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__select_start_date_select_start_date__ = __webpack_require__(346);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__select_end_date_select_end_date__ = __webpack_require__(107);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__car_list_car_list__ = __webpack_require__(347);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__angular_common_http__ = __webpack_require__(27);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -140,41 +226,57 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
+// import { Observable } from 'rxjs/Observable';
 var HomePage = /** @class */ (function () {
     //  public event = {
     //    startTip: '2019-06-15',
     //    endTrip: '2019-06-18'
     //  }
-    function HomePage(navCtrl, http) {
+    // bike: any = { bike_number: '', bike_status: '' };
+    function HomePage(navCtrl, http, api) {
         this.navCtrl = navCtrl;
         this.http = http;
+        this.api = api;
     }
     HomePage.prototype.select_city = function () {
-        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_2__select_city_select_city__["a" /* Select_cityPage */]);
+        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__select_city_select_city__["a" /* Select_cityPage */]);
     };
     HomePage.prototype.select_start_date = function () {
-        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__select_start_date_select_start_date__["a" /* Select_start_datePage */]);
+        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_4__select_start_date_select_start_date__["a" /* Select_start_datePage */]);
     };
     HomePage.prototype.select_end_date = function () {
-        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_4__select_end_date_select_end_date__["a" /* Select_end_datePage */]);
+        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_5__select_end_date_select_end_date__["a" /* Select_end_datePage */]);
     };
     HomePage.prototype.car_list = function () {
-        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_5__car_list_car_list__["a" /* Car_listPage */]);
+        // console.log("Getting list of bikes ....", this.bike);
+        var _this = this;
+        this.api.getAvailableBikes(function () {
+            _this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_6__car_list_car_list__["a" /* Car_listPage */]);
+        });
+        // let data: Observable<any>;
+        // data = this.http.get('http://localhost:3000/api/bikes'),
+        //   data.subscribe(response => {
+        //     console.log(response),
+        //       this.bike = response;
+        //   }, error => { console.log(error) })
+        // this.navCtrl.push(Car_listPage)
     };
     HomePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
             selector: 'page-home',template:/*ion-inline-start:"E:\Workspace\gitlab\ebike\frontend\src\pages\home\home.html"*/'<ion-header class="theme_header bg-transparent">\n    <ion-navbar>\n        <button ion-button menuToggle>\n            <ion-icon name="menu"></ion-icon>\n        </button>\n        <ion-title>\n            {{\'app_title1\' | translate}}<span>{{\'app_title2\' | translate}}</span>\n        </ion-title>\n    </ion-navbar>\n</ion-header>\n\n<ion-content>\n    <div class="container">\n        <div class="banner">\n            <p>{{\'banner_text1\' | translate}}<br>{{\'banner_text2\' | translate}}<br>{{\'banner_text3\' | translate}}</p>\n        </div>\n\n        <ion-list no-lines>\n            <ion-item (click)="select_city()">\n                <h3>{{\'Location\' | translate}}</h3>\n                <h2 class="d-flex">\n                    <ion-icon class="zmdi zmdi-pin"></ion-icon>\n                    Campus Bike UTM, Faculty ALam Bina parking\n                </h2>\n            </ion-item>  \n\n            <ion-item (click)="select_start_date()">\n                <h3>{{\'start_trip\' | translate}}</h3>\n                <h2 class="d-flex">\n                    <ion-icon class="zmdi zmdi-calendar-alt"></ion-icon>\n                    15 Jun, 2019 5:30 pm\n                </h2>\n            </ion-item>\n\n            <ion-item (click)="select_end_date()">\n                <h3>{{\'end_trip\' | translate}}</h3>\n                <h2 class="d-flex">\n                    <ion-icon class="zmdi zmdi-calendar-alt"></ion-icon>\n                    18 Jun, 2019 10:30 pm\n                </h2>\n            </ion-item>\n            <button ion-button block icon-start class="btn" (click)="car_list()">{{\'search_cars\' | translate}}</button>\n        </ion-list>\n    </div>\n\n   <!---- <div class="latest_offer">\n        <h2>{{\'latest_offer\' | translate}}</h2>\n        <ion-scroll scrollX="true">\n            <div class="item_scroll">\n                <div class="item_bg center_img">\n                    <img src="assets/imgs/1.jpg" class="crop_img">\n                </div>\n                <div class="text_box">\n                    <h2>20% off</h2>\n                    <h3>With HDXC Bank</h3>\n                </div>\n            </div>\n            <div class="item_scroll" text-end>\n                <div class="item_bg center_img">\n                    <img src="assets/imgs/2.jpg" class="crop_img">\n                </div>\n                <div class="text_box">\n                    <h2>50%</h2>\n                    <h3>Cashback</h3>\n                    <p>On frist booking</p>\n                </div>\n            </div>\n            <div class="item_scroll">\n                <div class="item_bg center_img">\n                    <img src="assets/imgs/1.jpg" class="crop_img">\n                </div>\n                <div class="text_box">\n                    <h2>20% off</h2>\n                    <h3>With HDXC Bank</h3>\n                </div>\n            </div>\n            <div class="item_scroll" text-end>\n                <div class="item_bg center_img">\n                    <img src="assets/imgs/2.jpg" class="crop_img">\n                </div>\n                <div class="text_box">\n                    <h2>50%</h2>\n                    <h3>Cashback</h3>\n                    <p>On frist booking</p>\n                </div>\n            </div>\n            <div class="item_scroll">\n                <div class="item_bg center_img">\n                    <img src="assets/imgs/1.jpg" class="crop_img">\n                </div>\n                <div class="text_box">\n                    <h2>20% off</h2>\n                    <h3>With HDXC Bank</h3>\n                </div>\n            </div>\n            <div class="item_scroll" text-end>\n                <div class="item_bg center_img">\n                    <img src="assets/imgs/2.jpg" class="crop_img">\n                </div>\n                <div class="text_box">\n                    <h2>50%</h2>\n                    <h3>Cashback</h3>\n                    <p>On frist booking</p>\n                </div>\n            </div>\n            <div class="item_scroll">\n                <div class="item_bg center_img">\n                    <img src="assets/imgs/1.jpg" class="crop_img">\n                </div>\n                <div class="text_box">\n                    <h2>20% off</h2>\n                    <h3>With HDXC Bank</h3>\n                </div>\n            </div>\n            <div class="item_scroll" text-end>\n                <div class="item_bg center_img">\n                    <img src="assets/imgs/2.jpg" class="crop_img">\n                </div>\n                <div class="text_box">\n                    <h2>50%</h2>\n                    <h3>Cashback</h3>\n                    <p>On frist booking</p>\n                </div>\n            </div>\n        </ion-scroll>\n    </div> -->\n</ion-content>'/*ion-inline-end:"E:\Workspace\gitlab\ebike\frontend\src\pages\home\home.html"*/
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */], __WEBPACK_IMPORTED_MODULE_6__angular_common_http__["a" /* HttpClient */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_7__angular_common_http__["a" /* HttpClient */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_7__angular_common_http__["a" /* HttpClient */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__providers_api_ebike_api__["a" /* EbikeApiProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__providers_api_ebike_api__["a" /* EbikeApiProvider */]) === "function" && _c || Object])
     ], HomePage);
     return HomePage;
+    var _a, _b, _c;
 }());
 
 //# sourceMappingURL=home.js.map
 
 /***/ }),
 
-/***/ 336:
+/***/ 343:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -210,14 +312,14 @@ var My_profilePage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 337:
+/***/ 344:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Select_cityPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pick_drop_location_pick_drop_location__ = __webpack_require__(338);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pick_drop_location_pick_drop_location__ = __webpack_require__(345);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -250,14 +352,14 @@ var Select_cityPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 338:
+/***/ 345:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Pick_drop_locationPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__home_home__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__home_home__ = __webpack_require__(31);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -290,17 +392,16 @@ var Pick_drop_locationPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 339:
+/***/ 346:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Select_start_datePage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__providers_api_ebike_api__ = __webpack_require__(448);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__providers_api_ebike_api___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__providers_api_ebike_api__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__providers_api_ebike_api__ = __webpack_require__(106);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__select_end_date_select_end_date__ = __webpack_require__(106);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_common_http__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__select_end_date_select_end_date__ = __webpack_require__(107);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_common_http__ = __webpack_require__(27);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -336,25 +437,25 @@ var Select_start_datePage = /** @class */ (function () {
         Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["m" /* Component */])({
             selector: 'page-select_start_date',template:/*ion-inline-start:"E:\Workspace\gitlab\ebike\frontend\src\pages\select_start_date\select_start_date.html"*/'<ion-header>\n    <ion-navbar>\n        <button ion-button menuToggle>\n            <ion-icon name="menu"></ion-icon>\n        </button>\n        <ion-title>{{\'select_start_date\' | translate}}</ion-title>\n    </ion-navbar>\n</ion-header>\n\n<ion-content class="bg-color">\n    <div class="calendar_box">\n        <ion-calendar #calendar lang="en"></ion-calendar>\n    </div>\n\n    <div class="select_date">\n        <h2>{{\'select_trip_start_time\' | translate}}</h2>\n        <ion-datetime displayFormat="h:mm A" pickerFormat="YYYY-MM-DD HH:mm:ss" [(ngModel)]="trip.startDate">\n        </ion-datetime>\n        <h3>{{\'tab_to_select\' | translate}}</h3>\n    </div>\n</ion-content>\n<ion-footer no-border>\n    <button ion-button no-margin full class="btn" (click)="select_end_date()">{{\'select_end_date\' | translate}}</button>\n</ion-footer>'/*ion-inline-end:"E:\Workspace\gitlab\ebike\frontend\src\pages\select_start_date\select_start_date.html"*/
         }),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["f" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["f" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_4__angular_common_http__["a" /* HttpClient */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__angular_common_http__["a" /* HttpClient */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_0__providers_api_ebike_api__["EbikeApiProvider"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__providers_api_ebike_api__["EbikeApiProvider"]) === "function" && _c || Object])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["f" /* NavController */], __WEBPACK_IMPORTED_MODULE_4__angular_common_http__["a" /* HttpClient */], __WEBPACK_IMPORTED_MODULE_0__providers_api_ebike_api__["a" /* EbikeApiProvider */]])
     ], Select_start_datePage);
     return Select_start_datePage;
-    var _a, _b, _c;
 }());
 
 //# sourceMappingURL=select_start_date.js.map
 
 /***/ }),
 
-/***/ 340:
+/***/ 347:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Car_listPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__book_car_book_car__ = __webpack_require__(341);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__filters_filters__ = __webpack_require__(344);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_api_ebike_api__ = __webpack_require__(106);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__book_car_book_car__ = __webpack_require__(348);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__filters_filters__ = __webpack_require__(351);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -368,37 +469,46 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
+//import { HttpClient } from '@angular/common/http';
 var Car_listPage = /** @class */ (function () {
-    function Car_listPage(navCtrl) {
+    function Car_listPage(navCtrl, api) {
         this.navCtrl = navCtrl;
+        this.api = api;
+        this.bike = [];
+        this.bike = this.api.getFetchedData();
+        console.log("Car_listPage :\n", this.bike);
     }
     Car_listPage.prototype.book_car = function () {
-        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_2__book_car_book_car__["a" /* Book_carPage */]);
+        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__book_car_book_car__["a" /* Book_carPage */]);
     };
     Car_listPage.prototype.filters = function () {
-        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__filters_filters__["a" /* FiltersPage */]);
+        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_4__filters_filters__["a" /* FiltersPage */]);
     };
     Car_listPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
             selector: 'page-car_list',template:/*ion-inline-start:"E:\Workspace\gitlab\ebike\frontend\src\pages\car_list\car_list.html"*/'<ion-header>\n    <ion-navbar>\n        <button ion-button menuToggle>\n            <ion-icon name="menu"></ion-icon>\n        </button>\n        <ion-title>Campus Bike UTM, Faculty Alam Bina parking</ion-title>\n    </ion-navbar>\n    <ion-row>\n        <ion-col col-5 text-start>\n            <p>Sat, 15 Jun, 5:30 pm</p>\n        </ion-col>\n        <ion-col col-2 text-center>\n            <ion-icon class="zmdi zmdi-arrow-right"></ion-icon>\n        </ion-col>\n        <ion-col col-5 text-end>\n            <p>Tue, 18 Jun, 10:30 pm</p>\n        </ion-col>\n    </ion-row>\n</ion-header>\n\n<ion-content class="bg-color">\n    <div class="container">\n        <ion-list no-lines no-margin>\n            <ion-item *ngFor="let item of bike">\n                <ion-row>\n                    <ion-col col-8>\n                        <h2>{{item.bike_number}}</h2>\n                       <!---- <h5>5 Seater | White</h5>-->\n                        <p class="d-flex">\n                            <ion-icon class="zmdi zmdi-pin"></ion-icon>\n                            Campus Bike UTM, Faculty Alam Bina parking\n                        </p>\n\n                        <div class="btn_box d-flex ">\n                            <h3 class="without_fuel">{{bike.bike_status}}\n                                <span>Status</span>\n                            </h3>\n                          <!----  <h3 class="with_fuel">$150.00\n                                <span> With fuel</span>\n                            </h3>-->\n                        </div>\n                    </ion-col>\n                    <ion-col col-4>\n                        <div class="car_img">\n                            <img src="assets/imgs/Bike_image 1.jpg">\n                        </div>\n                        <button ion-button no-margin block class="btn" (click)="book_car()">{{\'book_now\' | translate}}</button>\n                    </ion-col>\n                </ion-row>\n            </ion-item>\n\n            <ion-item>\n                <ion-row>\n                    <ion-col col-8>\n                        <h2>Bike 2</h2>\n                        <!---- <h5>5 Seater | White</h5>-->\n                         <p class="d-flex">\n                             <ion-icon class="zmdi zmdi-pin"></ion-icon>\n                             Campus Bike UTM, Faculty Alam Bina parking\n                         </p>\n \n                         <div class="btn_box d-flex ">\n                             <h3 class="without_fuel">Available\n                                 <span>Status</span>\n                             </h3>\n                           <!----  <h3 class="with_fuel">$150.00\n                                 <span> With fuel</span>\n                             </h3>-->\n                         </div>\n                    </ion-col>\n                    <ion-col col-4>\n                        <div class="car_img">\n                            <img src="assets/imgs/Bike_image 2.jpg">\n                        </div>\n                        <button ion-button no-margin block class="btn" (click)="book_car()">{{\'book_now\' | translate}}</button>\n                    </ion-col>\n                </ion-row>\n            </ion-item>\n\n            <ion-item>\n                <ion-row>\n                    <ion-col col-8>\n                        <h2>Bike 3</h2>\n                        <!---- <h5>5 Seater | White</h5>-->\n                         <p class="d-flex">\n                             <ion-icon class="zmdi zmdi-pin"></ion-icon>\n                             Campus Bike UTM, Faculty Alam Bina parking\n                         </p>\n \n                         <div class="btn_box d-flex ">\n                             <h3 class="without_fuel">Available\n                                 <span>Status</span>\n                             </h3>\n                           <!----  <h3 class="with_fuel">$150.00\n                                 <span> With fuel</span>\n                             </h3>-->\n                         </div>\n                    </ion-col>\n                    <ion-col col-4>\n                        <div class="car_img">\n                            <img src="assets/imgs/Bike_image 3.jpg">\n                        </div>\n                        <button ion-button no-margin block class="btn" (click)="book_car()">{{\'book_now\' | translate}}</button>\n                    </ion-col>\n                </ion-row>\n            </ion-item>\n\n            <ion-item>\n                <ion-row>\n                    <ion-col col-8>\n                        <h2>Bike 4</h2>\n                        <!---- <h5>5 Seater | White</h5>-->\n                         <p class="d-flex">\n                             <ion-icon class="zmdi zmdi-pin"></ion-icon>\n                             Campus Bike UTM, Faculty Alam Bina parking\n                         </p>\n \n                         <div class="btn_box d-flex ">\n                             <h3 class="without_fuel">Available\n                                 <span>Status</span>\n                             </h3>\n                           <!----  <h3 class="with_fuel">$150.00\n                                 <span> With fuel</span>\n                             </h3>-->\n                         </div>\n                    </ion-col>\n                    <ion-col col-4>\n                        <div class="car_img">\n                            <img src="assets/imgs/Bike_image 4.jpg">\n                        </div>\n                        <button ion-button no-margin block class="btn" (click)="book_car()">{{\'book_now\' | translate}}</button>\n                    </ion-col>\n                </ion-row>\n            </ion-item>\n\n            <ion-item>\n                <ion-row>\n                    <ion-col col-8>\n                        <h2>Bike 5</h2>\n                        <!---- <h5>5 Seater | White</h5>-->\n                         <p class="d-flex">\n                             <ion-icon class="zmdi zmdi-pin"></ion-icon>\n                             Campus Bike UTM, Faculty Alam Bina parking\n                         </p>\n \n                         <div class="btn_box d-flex ">\n                             <h3 class="without_fuel">Available\n                                 <span>Status</span>\n                             </h3>\n                           <!----  <h3 class="with_fuel">$150.00\n                                 <span> With fuel</span>\n                             </h3>-->\n                         </div>\n                    </ion-col>\n                    <ion-col col-4>\n                        <div class="car_img">\n                            <img src="assets/imgs/Bike_image 5.jpg">\n                        </div>\n                        <button ion-button no-margin block class="btn" (click)="book_car()">{{\'book_now\' | translate}}</button>\n                    </ion-col>\n                </ion-row>\n            </ion-item>\n\n            <ion-item>\n                <ion-row>\n                    <ion-col col-8>\n                        <h2>Bike 6</h2>\n                        <!---- <h5>5 Seater | White</h5>-->\n                         <p class="d-flex">\n                             <ion-icon class="zmdi zmdi-pin"></ion-icon>\n                             Campus Bike UTM, Faculty Alam Bina parking\n                         </p>\n \n                         <div class="btn_box d-flex ">\n                             <h3 class="without_fuel">Available\n                                 <span>Status</span>\n                             </h3>\n                           <!----  <h3 class="with_fuel">$150.00\n                                 <span> With fuel</span>\n                             </h3>-->\n                         </div>\n                    </ion-col>\n                    <ion-col col-4>\n                        <div class="car_img">\n                            <img src="assets/imgs/Bike_image 6.jpg">\n                        </div>\n                        <button ion-button no-margin block class="btn" (click)="book_car()">{{\'book_now\' | translate}}</button>\n                    </ion-col>\n                </ion-row>\n            </ion-item>\n\n            <ion-item>\n                <ion-row>\n                    <ion-col col-8>\n                        <h2>Bike 7</h2>\n                        <!---- <h5>5 Seater | White</h5>-->\n                         <p class="d-flex">\n                             <ion-icon class="zmdi zmdi-pin"></ion-icon>\n                             Campus Bike UTM, Faculty Alam Bina parking\n                         </p>\n \n                         <div class="btn_box d-flex ">\n                             <h3 class="without_fuel">Available\n                                 <span>Status</span>\n                             </h3>\n                           <!----  <h3 class="with_fuel">$150.00\n                                 <span> With fuel</span>\n                             </h3>-->\n                         </div>\n                    </ion-col>\n                    <ion-col col-4>\n                        <div class="car_img">\n                            <img src="assets/imgs/Bike_image 7.jpg">\n                        </div>\n                        <button ion-button no-margin block class="btn" (click)="book_car()">{{\'book_now\' | translate}}</button>\n                    </ion-col>\n                </ion-row>\n            </ion-item>\n\n            <ion-item>\n                <ion-row>\n                    <ion-col col-8>\n                        <h2>Bike 8</h2>\n                        <!---- <h5>5 Seater | White</h5>-->\n                         <p class="d-flex">\n                             <ion-icon class="zmdi zmdi-pin"></ion-icon>\n                             Campus Bike UTM, Faculty Alam Bina parking\n                         </p>\n \n                         <div class="btn_box d-flex ">\n                             <h3 class="without_fuel">Available\n                                 <span>Status</span>\n                             </h3>\n                           <!----  <h3 class="with_fuel">$150.00\n                                 <span> With fuel</span>\n                             </h3>-->\n                         </div>\n                    </ion-col>\n                    <ion-col col-4>\n                        <div class="car_img">\n                            <img src="assets/imgs/Bike_image 8.jpg">\n                        </div>\n                        <button ion-button no-margin block class="btn" (click)="book_car()">{{\'book_now\' | translate}}</button>\n                    </ion-col>\n                </ion-row>\n            </ion-item>\n        </ion-list>\n    </div>\n</ion-content>\n\n<ion-footer no-border>\n    <div class="icon_box d-flex" (click)="filters()">\n        <ion-badge item-end>1</ion-badge>\n        <ion-icon class="zmdi zmdi-filter-list end"></ion-icon>\n    </div>\n</ion-footer>'/*ion-inline-end:"E:\Workspace\gitlab\ebike\frontend\src\pages\car_list\car_list.html"*/
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__providers_api_ebike_api__["a" /* EbikeApiProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__providers_api_ebike_api__["a" /* EbikeApiProvider */]) === "function" && _b || Object])
     ], Car_listPage);
     return Car_listPage;
+    var _a, _b;
 }());
 
 //# sourceMappingURL=car_list.js.map
 
 /***/ }),
 
-/***/ 341:
+/***/ 348:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Book_carPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__payment_payment__ = __webpack_require__(342);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_moment__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_moment__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__payment_payment__ = __webpack_require__(349);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -411,34 +521,44 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var Book_carPage = /** @class */ (function () {
     function Book_carPage(navCtrl) {
         this.navCtrl = navCtrl;
+        this.startTrip = __WEBPACK_IMPORTED_MODULE_2_moment___default()('2020-08-05 18:00:00');
+        this.stopTrip = __WEBPACK_IMPORTED_MODULE_2_moment___default()('2020-08-06 14:01:00');
+        this._startedDate = this.startTrip.format('YYYY/MM/DD');
+        this._startedTime = this.startTrip.format('HH:mm:ss');
+        this._stopDate = this.stopTrip.format('YYYY/MM/DD');
+        this._stopTime = this.stopTrip.format('HH:mm:ss');
+        this._duration = this.stopTrip.diff(this.startTrip, 'hours');
     }
+    ;
     Book_carPage.prototype.payment = function () {
-        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_2__payment_payment__["a" /* PaymentPage */]);
+        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__payment_payment__["a" /* PaymentPage */]);
     };
     Book_carPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-book_car',template:/*ion-inline-start:"E:\Workspace\gitlab\ebike\frontend\src\pages\book_car\book_car.html"*/'<ion-header>\n    <ion-navbar>\n        <button ion-button menuToggle>\n            <ion-icon name="menu"></ion-icon>\n        </button>\n        <ion-title></ion-title>\n    </ion-navbar>\n    <ion-row>\n        <ion-col col-6>\n            <h2>Bike</h2>\n            <h3>3</h3>\n        </ion-col>\n        <ion-col col-6 text-end>\n            <img src="assets/imgs/Bike_image 3.jpg">\n        </ion-col>\n    </ion-row>\n</ion-header>\n\n<ion-content>\n    <div class="container">\n        <ion-row>\n            <ion-col col>\n                <h4>{{\'trip_start\' | translate}}</h4>\n                <h2>Sat, 15 Jun </h2>\n                <h3>5:30 pm</h3>\n            </ion-col>\n            <ion-col col class="trevl_time">\n                <h3>77 Hours</h3>\n            </ion-col>\n            <ion-col col text-end>\n                <h4>{{\'trip_end\' | translate}}</h4>\n                <h2>Sat, 18 Jun </h2>\n                <h3>10:30 pm</h3>\n            </ion-col>\n        </ion-row>\n    </div>\n    <div class="container">\n        <h4>{{\'pick_up_location\' | translate}}</h4>\n        <ion-row>\n            <ion-col col-7>\n                <h2>Campus Bike UTM<br> Faculty of Alam Bina parking</h2>\n            </ion-col>\n\n            <ion-col col-5>\n                <div class="map center_img">\n                    <img src="assets/imgs/map.png" class="crop_img">\n                    <ion-icon class="zmdi zmdi-car" text-center></ion-icon>\n                </div>\n            </ion-col>\n        </ion-row>\n    </div>\n\n   <!---- <div class="container">\n        <h4>{{\'pick_up_location\' | translate}}</h4>\n        <ion-row>\n            <ion-col col-3>\n                <h2 class="">\n                    <ion-icon class="zmdi zmdi-gas-station"></ion-icon>\n                    Fuel\n                </h2>\n            </ion-col>\n            <ion-col col-6 text-center>\n                <h2 class="">\n                    <ion-icon class="zmdi zmdi-badge-check"></ion-icon>\n                    Insurance\n                </h2>\n            </ion-col>\n            <ion-col col-3 text-end>\n                <h2 class="">\n                    <ion-icon class="zmdi zmdi-assignment"></ion-icon>\n                    Taxes\n                </h2>\n            </ion-col>\n        </ion-row>\n    </div>-->\n</ion-content>\n<ion-footer no-border>\n    <div class="container">\n        <ion-row>\n            <ion-col col-12>\n                <h4>{{\'amount_breakup\' | translate}}</h4>\n                <h2 class="d-flex"> {{\'base_fare\' | translate}}<span class="end">RM 20 </span></h2>\n                <h2 class="d-flex"> {{\'Extra hours\' | translate}}<span class="end">RM 10 </span></h2>\n                <!--<h2 class="d-flex">{{\'taxes\' | translate}}<span class="end">$ 90.00 </span></h2>-->\n            </ion-col>\n        </ion-row>\n    </div>\n\n    <div class="btn_box" (click)="payment()">\n        <h2 class="d-flex">{{\'proceed_to_payment\' | translate}}<span class="end">RM 30 </span></h2>\n    </div>\n</ion-footer>'/*ion-inline-end:"E:\Workspace\gitlab\ebike\frontend\src\pages\book_car\book_car.html"*/
+            selector: 'page-book_car',template:/*ion-inline-start:"E:\Workspace\gitlab\ebike\frontend\src\pages\book_car\book_car.html"*/'<ion-header>\n    <ion-navbar>\n        <button ion-button menuToggle>\n            <ion-icon name="menu"></ion-icon>\n        </button>\n        <ion-title></ion-title>\n    </ion-navbar>\n    <ion-row>\n        <ion-col col-6>\n            <h2>Bike</h2>\n            <h3>3</h3>\n        </ion-col>\n        <ion-col col-6 text-end>\n            <img src="assets/imgs/Bike_image 3.jpg">\n        </ion-col>\n    </ion-row>\n</ion-header>\n\n<ion-content>\n    <div class="container">\n        <ion-row>\n            <ion-col col>\n                <h4>{{\'trip_start\' | translate}}</h4>\n                <h2>{{_startedDate}} </h2>\n                <h3>{{_startedTime}}</h3>\n            </ion-col>\n            <ion-col col class="trevl_time">\n                <h3>{{_duration}} Hours</h3>\n            </ion-col>\n            <ion-col col text-end>\n                <h4>{{\'trip_end\' | translate}}</h4>\n                <h2>{{_stopDate}} </h2>\n                <h3>{{_stopTime}}</h3>\n            </ion-col>\n        </ion-row>\n    </div>\n    <div class="container">\n        <h4>{{\'pick_up_location\' | translate}}</h4>\n        <ion-row>\n            <ion-col col-7>\n                <h2>Campus Bike UTM<br> Faculty of Alam Bina parking</h2>\n            </ion-col>\n\n            <ion-col col-5>\n                <div class="map center_img">\n                    <img src="assets/imgs/map.png" class="crop_img">\n                    <ion-icon class="zmdi zmdi-car" text-center></ion-icon>\n                </div>\n            </ion-col>\n        </ion-row>\n    </div>\n\n    <!---- <div class="container">\n        <h4>{{\'pick_up_location\' | translate}}</h4>\n        <ion-row>\n            <ion-col col-3>\n                <h2 class="">\n                    <ion-icon class="zmdi zmdi-gas-station"></ion-icon>\n                    Fuel\n                </h2>\n            </ion-col>\n            <ion-col col-6 text-center>\n                <h2 class="">\n                    <ion-icon class="zmdi zmdi-badge-check"></ion-icon>\n                    Insurance\n                </h2>\n            </ion-col>\n            <ion-col col-3 text-end>\n                <h2 class="">\n                    <ion-icon class="zmdi zmdi-assignment"></ion-icon>\n                    Taxes\n                </h2>\n            </ion-col>\n        </ion-row>\n    </div>-->\n</ion-content>\n<ion-footer no-border>\n    <div class="container">\n        <ion-row>\n            <ion-col col-12>\n                <h4>{{\'amount_breakup\' | translate}}</h4>\n                <h2 class="d-flex"> {{\'base_fare\' | translate}}<span class="end">RM 20 </span></h2>\n                <h2 class="d-flex"> {{\'Extra hours\' | translate}}<span class="end">RM 10 </span></h2>\n                <!--<h2 class="d-flex">{{\'taxes\' | translate}}<span class="end">$ 90.00 </span></h2>-->\n            </ion-col>\n        </ion-row>\n    </div>\n\n    <div class="btn_box" (click)="payment()">\n        <h2 class="d-flex">{{\'proceed_to_payment\' | translate}}<span class="end">RM 30 </span></h2>\n    </div>\n</ion-footer>'/*ion-inline-end:"E:\Workspace\gitlab\ebike\frontend\src\pages\book_car\book_car.html"*/
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */]) === "function" && _a || Object])
     ], Book_carPage);
     return Book_carPage;
+    var _a;
 }());
 
 //# sourceMappingURL=book_car.js.map
 
 /***/ }),
 
-/***/ 342:
+/***/ 349:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return PaymentPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__booked_booked__ = __webpack_require__(343);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__booked_booked__ = __webpack_require__(350);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -471,7 +591,7 @@ var PaymentPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 343:
+/***/ 350:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -511,7 +631,7 @@ var BookedPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 344:
+/***/ 351:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -546,14 +666,14 @@ var FiltersPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 345:
+/***/ 352:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Doc_verificatinoPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__doc_verified_doc_verified__ = __webpack_require__(346);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__doc_verified_doc_verified__ = __webpack_require__(353);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -586,7 +706,7 @@ var Doc_verificatinoPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 346:
+/***/ 353:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -621,7 +741,7 @@ var Doc_verifiedPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 347:
+/***/ 354:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -656,7 +776,7 @@ var Terms_conditionPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 348:
+/***/ 355:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -691,16 +811,17 @@ var SupportPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 349:
+/***/ 356:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Sign_inPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__sign_up_sign_up__ = __webpack_require__(350);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__home_home__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_common_http__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_api_ebike_api__ = __webpack_require__(106);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__sign_up_sign_up__ = __webpack_require__(357);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__home_home__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_common_http__ = __webpack_require__(27);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -715,26 +836,36 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var Sign_inPage = /** @class */ (function () {
-    function Sign_inPage(navCtrl, http, alrt) {
+    function Sign_inPage(navCtrl, http, alrt, api) {
         this.navCtrl = navCtrl;
         this.http = http;
         this.alrt = alrt;
+        this.api = api;
         this.login = { user_email: '', user_password: '' };
     }
     Sign_inPage.prototype.sign_up = function () {
-        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_2__sign_up_sign_up__["a" /* Sign_upPage */]);
+        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__sign_up_sign_up__["a" /* Sign_upPage */]);
     };
     Sign_inPage.prototype.home = function () {
-        this.navCtrl.setRoot(__WEBPACK_IMPORTED_MODULE_3__home_home__["a" /* HomePage */]);
+        this.navCtrl.setRoot(__WEBPACK_IMPORTED_MODULE_4__home_home__["a" /* HomePage */]);
     };
     Sign_inPage.prototype.sign_in = function () {
         var _this = this;
         console.log("Signing in ....", this.login);
-        this.http.post('http://localhost:3000/api/Users/login', {
-            email: this.login.user_email,
-            password: this.login.user_password
-        }).subscribe(function (response) { _this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__home_home__["a" /* HomePage */]); }, function (error) { console.log(error); _this.alertPopup("Alert", "Login Failed"); });
+        this.api.signIn(this.login)
+            .subscribe(function (response) {
+            console.log(response);
+            _this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_4__home_home__["a" /* HomePage */]);
+        }, function (error) {
+            console.log(error);
+            _this.alertPopup("Alert", "Login Failed");
+        });
+        // this.http.post('http://192.168.1.25:3000/api/Users/login', {
+        //   email: this.login.user_email,
+        //   password: this.login.user_password
+        // }).subscribe(response => { this.navCtrl.push(HomePage) }, error => { console.log(error); this.alertPopup("Alert", "Login Failed") })
         //this.navCtrl.push(HomePage);
     };
     Sign_inPage.prototype.alertPopup = function (title, Msg) {
@@ -749,24 +880,25 @@ var Sign_inPage = /** @class */ (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
             selector: 'page-sign_in',template:/*ion-inline-start:"E:\Workspace\gitlab\ebike\frontend\src\pages\sign_in\sign_in.html"*/'<ion-header class="theme_header bg-transparent">\n    <ion-navbar>\n        <ion-title>\n            {{\'welcome_to\' | translate}}<br>\n            {{\'app_title1\' | translate}}<span>{{\'app_title2\' | translate}}</span>\n        </ion-title>\n    </ion-navbar>\n</ion-header>\n\n<ion-content >\n    <div class="banner" text-left>\n        <img src="assets/imgs/bike rent.png">\n    </div> \n    <div class="socila_section">\n        <p> {{\'continue_with_social_account\' | translate}}</p>\n        <ion-row>\n            <ion-col col-6>\n\n                <button ion-button block clear icon-start class="btn facebook">\n                    <img src="assets/imgs/fb.png">\n                    {{\'facebook\' | translate}}\n                </button>\n            </ion-col>\n            <ion-col col-6>\n\n                <button ion-button clear block icon-start class="btn google">\n                    <img src="assets/imgs/google.png">\n                    {{\'google\' | translate}}</button>\n            </ion-col>\n        </ion-row>\n    </div>\n\n    <div class="form">\n        <h2> {{\'or_signin_with_your_account\' | translate}}</h2>\n        <ion-list no-lines>\n            <ion-item>\n                <ion-label>{{\'email_phone_number\' | translate}}</ion-label>\n                <ion-input type="text" value="" [(ngModel)]="login.user_email"></ion-input>\n            </ion-item>\n            <ion-item class="password">\n                <ion-label class="d-flex">{{\'password\' | translate}}<span class="end">{{\'forgot\' | translate}}</span></ion-label>\n                <ion-input type="password" value="" [(ngModel)]="login.user_password"></ion-input>\n            </ion-item>\n        </ion-list>\n    </div>\n</ion-content>\n<ion-footer no-border>\n    <ion-row>\n        <ion-col col-6 no-padding>\n            <button ion-button full clear no-margin class="btn" (click)="sign_up()">{{\'sign_up\' | translate}}</button>\n        </ion-col>\n        <ion-col col-6 no-padding>\n            <button ion-button no-margin full class="btn" (click)="sign_in()">{{\'sign_in_now\' | translate}}</button>\n        </ion-col>\n    </ion-row>\n</ion-footer>\n'/*ion-inline-end:"E:\Workspace\gitlab\ebike\frontend\src\pages\sign_in\sign_in.html"*/
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */], __WEBPACK_IMPORTED_MODULE_4__angular_common_http__["a" /* HttpClient */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_5__angular_common_http__["a" /* HttpClient */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__angular_common_http__["a" /* HttpClient */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__providers_api_ebike_api__["a" /* EbikeApiProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__providers_api_ebike_api__["a" /* EbikeApiProvider */]) === "function" && _d || Object])
     ], Sign_inPage);
     return Sign_inPage;
+    var _a, _b, _c, _d;
 }());
 
 //# sourceMappingURL=sign_in.js.map
 
 /***/ }),
 
-/***/ 350:
+/***/ 357:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Sign_upPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_common_http__ = __webpack_require__(35);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__home_home__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_common_http__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__home_home__ = __webpack_require__(31);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -812,13 +944,13 @@ var Sign_upPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 351:
+/***/ 358:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(352);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(369);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(359);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(376);
 
 
 Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* platformBrowserDynamic */])().bootstrapModule(__WEBPACK_IMPORTED_MODULE_1__app_module__["a" /* AppModule */]);
@@ -826,48 +958,50 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 
 /***/ }),
 
-/***/ 369:
+/***/ 376:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* unused harmony export createTranslateLoader */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(34);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_common_http__ = __webpack_require__(35);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ngx_translate_core__ = __webpack_require__(202);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ngx_translate_http_loader__ = __webpack_require__(422);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_ionic3_calendar_en__ = __webpack_require__(424);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__app_component__ = __webpack_require__(430);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_book_car_book_car__ = __webpack_require__(341);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_booked_booked__ = __webpack_require__(343);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_car_list_car_list__ = __webpack_require__(340);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_doc_verificatino_doc_verificatino__ = __webpack_require__(345);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_doc_verified_doc_verified__ = __webpack_require__(346);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__pages_filters_filters__ = __webpack_require__(344);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__pages_home_home__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_common_http__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ngx_translate_core__ = __webpack_require__(203);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ngx_translate_http_loader__ = __webpack_require__(429);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_ionic3_calendar_en__ = __webpack_require__(431);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__app_component__ = __webpack_require__(437);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_book_car_book_car__ = __webpack_require__(348);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_booked_booked__ = __webpack_require__(350);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_car_list_car_list__ = __webpack_require__(347);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_doc_verificatino_doc_verificatino__ = __webpack_require__(352);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_doc_verified_doc_verified__ = __webpack_require__(353);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__pages_filters_filters__ = __webpack_require__(351);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__pages_home_home__ = __webpack_require__(31);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__pages_my_bookings_my_bookings__ = __webpack_require__(105);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__pages_my_profile_my_profile__ = __webpack_require__(336);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__pages_payment_payment__ = __webpack_require__(342);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__pages_pick_drop_location_pick_drop_location__ = __webpack_require__(338);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__pages_select_city_select_city__ = __webpack_require__(337);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__pages_select_end_date_select_end_date__ = __webpack_require__(106);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__pages_select_start_date_select_start_date__ = __webpack_require__(339);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__pages_sign_in_sign_in__ = __webpack_require__(349);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__pages_sign_up_sign_up__ = __webpack_require__(350);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__pages_support_support__ = __webpack_require__(348);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__pages_terms_condition_terms_condition__ = __webpack_require__(347);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__pages_verification_verification__ = __webpack_require__(439);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__ionic_native_status_bar__ = __webpack_require__(332);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__ionic_native_splash_screen__ = __webpack_require__(335);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__providers_providers_sign_in_sign_in_providers_sign_in_sign_in__ = __webpack_require__(440);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__pages_my_profile_my_profile__ = __webpack_require__(343);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__pages_payment_payment__ = __webpack_require__(349);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__pages_pick_drop_location_pick_drop_location__ = __webpack_require__(345);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__pages_select_city_select_city__ = __webpack_require__(344);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__pages_select_end_date_select_end_date__ = __webpack_require__(107);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__pages_select_start_date_select_start_date__ = __webpack_require__(346);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__pages_sign_in_sign_in__ = __webpack_require__(356);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__pages_sign_up_sign_up__ = __webpack_require__(357);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__pages_support_support__ = __webpack_require__(355);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__pages_terms_condition_terms_condition__ = __webpack_require__(354);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__pages_verification_verification__ = __webpack_require__(446);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__ionic_native_status_bar__ = __webpack_require__(339);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__ionic_native_splash_screen__ = __webpack_require__(342);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__providers_providers_sign_in_sign_in_providers_sign_in_sign_in__ = __webpack_require__(447);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__providers_api_ebike_api__ = __webpack_require__(106);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -970,7 +1104,8 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_27__ionic_native_status_bar__["a" /* StatusBar */],
                 __WEBPACK_IMPORTED_MODULE_28__ionic_native_splash_screen__["a" /* SplashScreen */],
                 { provide: __WEBPACK_IMPORTED_MODULE_1__angular_core__["u" /* ErrorHandler */], useClass: __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["c" /* IonicErrorHandler */] },
-                __WEBPACK_IMPORTED_MODULE_29__providers_providers_sign_in_sign_in_providers_sign_in_sign_in__["a" /* ProvidersSignInSignInProvider */]
+                __WEBPACK_IMPORTED_MODULE_29__providers_providers_sign_in_sign_in_providers_sign_in_sign_in__["a" /* ProvidersSignInSignInProvider */],
+                __WEBPACK_IMPORTED_MODULE_30__providers_api_ebike_api__["a" /* EbikeApiProvider */]
             ]
         })
     ], AppModule);
@@ -981,62 +1116,62 @@ var AppModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 427:
+/***/ 434:
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
-	"./af": 205,
-	"./af.js": 205,
-	"./ar": 206,
-	"./ar-dz": 207,
-	"./ar-dz.js": 207,
-	"./ar-kw": 208,
-	"./ar-kw.js": 208,
-	"./ar-ly": 209,
-	"./ar-ly.js": 209,
-	"./ar-ma": 210,
-	"./ar-ma.js": 210,
-	"./ar-sa": 211,
-	"./ar-sa.js": 211,
-	"./ar-tn": 212,
-	"./ar-tn.js": 212,
-	"./ar.js": 206,
-	"./az": 213,
-	"./az.js": 213,
-	"./be": 214,
-	"./be.js": 214,
-	"./bg": 215,
-	"./bg.js": 215,
-	"./bm": 216,
-	"./bm.js": 216,
-	"./bn": 217,
-	"./bn.js": 217,
-	"./bo": 218,
-	"./bo.js": 218,
-	"./br": 219,
-	"./br.js": 219,
-	"./bs": 220,
-	"./bs.js": 220,
-	"./ca": 221,
-	"./ca.js": 221,
-	"./cs": 222,
-	"./cs.js": 222,
-	"./cv": 223,
-	"./cv.js": 223,
-	"./cy": 224,
-	"./cy.js": 224,
-	"./da": 225,
-	"./da.js": 225,
-	"./de": 226,
-	"./de-at": 227,
-	"./de-at.js": 227,
-	"./de-ch": 228,
-	"./de-ch.js": 228,
-	"./de.js": 226,
-	"./dv": 229,
-	"./dv.js": 229,
-	"./el": 230,
-	"./el.js": 230,
+	"./af": 206,
+	"./af.js": 206,
+	"./ar": 207,
+	"./ar-dz": 208,
+	"./ar-dz.js": 208,
+	"./ar-kw": 209,
+	"./ar-kw.js": 209,
+	"./ar-ly": 210,
+	"./ar-ly.js": 210,
+	"./ar-ma": 211,
+	"./ar-ma.js": 211,
+	"./ar-sa": 212,
+	"./ar-sa.js": 212,
+	"./ar-tn": 213,
+	"./ar-tn.js": 213,
+	"./ar.js": 207,
+	"./az": 214,
+	"./az.js": 214,
+	"./be": 215,
+	"./be.js": 215,
+	"./bg": 216,
+	"./bg.js": 216,
+	"./bm": 217,
+	"./bm.js": 217,
+	"./bn": 218,
+	"./bn.js": 218,
+	"./bo": 219,
+	"./bo.js": 219,
+	"./br": 220,
+	"./br.js": 220,
+	"./bs": 221,
+	"./bs.js": 221,
+	"./ca": 222,
+	"./ca.js": 222,
+	"./cs": 223,
+	"./cs.js": 223,
+	"./cv": 224,
+	"./cv.js": 224,
+	"./cy": 225,
+	"./cy.js": 225,
+	"./da": 226,
+	"./da.js": 226,
+	"./de": 227,
+	"./de-at": 228,
+	"./de-at.js": 228,
+	"./de-ch": 229,
+	"./de-ch.js": 229,
+	"./de.js": 227,
+	"./dv": 230,
+	"./dv.js": 230,
+	"./el": 231,
+	"./el.js": 231,
 	"./en-au": 232,
 	"./en-au.js": 232,
 	"./en-ca": 233,
@@ -1047,210 +1182,210 @@ var map = {
 	"./en-ie.js": 235,
 	"./en-il": 236,
 	"./en-il.js": 236,
-	"./en-in": 441,
-	"./en-in.js": 441,
-	"./en-nz": 237,
-	"./en-nz.js": 237,
-	"./en-sg": 442,
-	"./en-sg.js": 442,
-	"./eo": 238,
-	"./eo.js": 238,
-	"./es": 239,
-	"./es-do": 240,
-	"./es-do.js": 240,
-	"./es-us": 241,
-	"./es-us.js": 241,
-	"./es.js": 239,
-	"./et": 242,
-	"./et.js": 242,
-	"./eu": 243,
-	"./eu.js": 243,
-	"./fa": 244,
-	"./fa.js": 244,
-	"./fi": 245,
-	"./fi.js": 245,
-	"./fil": 443,
-	"./fil.js": 443,
-	"./fo": 246,
-	"./fo.js": 246,
-	"./fr": 247,
-	"./fr-ca": 248,
-	"./fr-ca.js": 248,
-	"./fr-ch": 249,
-	"./fr-ch.js": 249,
-	"./fr.js": 247,
-	"./fy": 250,
-	"./fy.js": 250,
-	"./ga": 251,
-	"./ga.js": 251,
-	"./gd": 252,
-	"./gd.js": 252,
-	"./gl": 253,
-	"./gl.js": 253,
-	"./gom-deva": 444,
-	"./gom-deva.js": 444,
-	"./gom-latn": 254,
-	"./gom-latn.js": 254,
-	"./gu": 255,
-	"./gu.js": 255,
-	"./he": 256,
-	"./he.js": 256,
-	"./hi": 257,
-	"./hi.js": 257,
-	"./hr": 258,
-	"./hr.js": 258,
-	"./hu": 259,
-	"./hu.js": 259,
-	"./hy-am": 260,
-	"./hy-am.js": 260,
-	"./id": 261,
-	"./id.js": 261,
-	"./is": 262,
-	"./is.js": 262,
-	"./it": 263,
-	"./it-ch": 264,
-	"./it-ch.js": 264,
-	"./it.js": 263,
-	"./ja": 265,
-	"./ja.js": 265,
-	"./jv": 266,
-	"./jv.js": 266,
-	"./ka": 267,
-	"./ka.js": 267,
-	"./kk": 268,
-	"./kk.js": 268,
-	"./km": 269,
-	"./km.js": 269,
-	"./kn": 270,
-	"./kn.js": 270,
-	"./ko": 271,
-	"./ko.js": 271,
-	"./ku": 272,
-	"./ku.js": 272,
-	"./ky": 273,
-	"./ky.js": 273,
-	"./lb": 274,
-	"./lb.js": 274,
-	"./lo": 275,
-	"./lo.js": 275,
-	"./lt": 276,
-	"./lt.js": 276,
-	"./lv": 277,
-	"./lv.js": 277,
-	"./me": 278,
-	"./me.js": 278,
-	"./mi": 279,
-	"./mi.js": 279,
-	"./mk": 280,
-	"./mk.js": 280,
-	"./ml": 281,
-	"./ml.js": 281,
-	"./mn": 282,
-	"./mn.js": 282,
-	"./mr": 283,
-	"./mr.js": 283,
-	"./ms": 284,
-	"./ms-my": 285,
-	"./ms-my.js": 285,
-	"./ms.js": 284,
-	"./mt": 286,
-	"./mt.js": 286,
-	"./my": 287,
-	"./my.js": 287,
-	"./nb": 288,
-	"./nb.js": 288,
-	"./ne": 289,
-	"./ne.js": 289,
-	"./nl": 290,
-	"./nl-be": 291,
-	"./nl-be.js": 291,
-	"./nl.js": 290,
-	"./nn": 292,
-	"./nn.js": 292,
-	"./oc-lnc": 445,
-	"./oc-lnc.js": 445,
-	"./pa-in": 293,
-	"./pa-in.js": 293,
-	"./pl": 294,
-	"./pl.js": 294,
-	"./pt": 295,
-	"./pt-br": 296,
-	"./pt-br.js": 296,
-	"./pt.js": 295,
-	"./ro": 297,
-	"./ro.js": 297,
-	"./ru": 298,
-	"./ru.js": 298,
-	"./sd": 299,
-	"./sd.js": 299,
-	"./se": 300,
-	"./se.js": 300,
-	"./si": 301,
-	"./si.js": 301,
-	"./sk": 302,
-	"./sk.js": 302,
-	"./sl": 303,
-	"./sl.js": 303,
-	"./sq": 304,
-	"./sq.js": 304,
-	"./sr": 305,
-	"./sr-cyrl": 306,
-	"./sr-cyrl.js": 306,
-	"./sr.js": 305,
-	"./ss": 307,
-	"./ss.js": 307,
-	"./sv": 308,
-	"./sv.js": 308,
-	"./sw": 309,
-	"./sw.js": 309,
-	"./ta": 310,
-	"./ta.js": 310,
-	"./te": 311,
-	"./te.js": 311,
-	"./tet": 312,
-	"./tet.js": 312,
-	"./tg": 313,
-	"./tg.js": 313,
-	"./th": 314,
-	"./th.js": 314,
-	"./tk": 446,
-	"./tk.js": 446,
-	"./tl-ph": 315,
-	"./tl-ph.js": 315,
-	"./tlh": 316,
-	"./tlh.js": 316,
-	"./tr": 317,
-	"./tr.js": 317,
-	"./tzl": 318,
-	"./tzl.js": 318,
-	"./tzm": 319,
-	"./tzm-latn": 320,
-	"./tzm-latn.js": 320,
-	"./tzm.js": 319,
-	"./ug-cn": 321,
-	"./ug-cn.js": 321,
-	"./uk": 322,
-	"./uk.js": 322,
-	"./ur": 323,
-	"./ur.js": 323,
-	"./uz": 324,
-	"./uz-latn": 325,
-	"./uz-latn.js": 325,
-	"./uz.js": 324,
-	"./vi": 326,
-	"./vi.js": 326,
-	"./x-pseudo": 327,
-	"./x-pseudo.js": 327,
-	"./yo": 328,
-	"./yo.js": 328,
-	"./zh-cn": 329,
-	"./zh-cn.js": 329,
-	"./zh-hk": 330,
-	"./zh-hk.js": 330,
-	"./zh-mo": 447,
-	"./zh-mo.js": 447,
-	"./zh-tw": 331,
-	"./zh-tw.js": 331
+	"./en-in": 237,
+	"./en-in.js": 237,
+	"./en-nz": 238,
+	"./en-nz.js": 238,
+	"./en-sg": 239,
+	"./en-sg.js": 239,
+	"./eo": 240,
+	"./eo.js": 240,
+	"./es": 241,
+	"./es-do": 242,
+	"./es-do.js": 242,
+	"./es-us": 243,
+	"./es-us.js": 243,
+	"./es.js": 241,
+	"./et": 244,
+	"./et.js": 244,
+	"./eu": 245,
+	"./eu.js": 245,
+	"./fa": 246,
+	"./fa.js": 246,
+	"./fi": 247,
+	"./fi.js": 247,
+	"./fil": 248,
+	"./fil.js": 248,
+	"./fo": 249,
+	"./fo.js": 249,
+	"./fr": 250,
+	"./fr-ca": 251,
+	"./fr-ca.js": 251,
+	"./fr-ch": 252,
+	"./fr-ch.js": 252,
+	"./fr.js": 250,
+	"./fy": 253,
+	"./fy.js": 253,
+	"./ga": 254,
+	"./ga.js": 254,
+	"./gd": 255,
+	"./gd.js": 255,
+	"./gl": 256,
+	"./gl.js": 256,
+	"./gom-deva": 257,
+	"./gom-deva.js": 257,
+	"./gom-latn": 258,
+	"./gom-latn.js": 258,
+	"./gu": 259,
+	"./gu.js": 259,
+	"./he": 260,
+	"./he.js": 260,
+	"./hi": 261,
+	"./hi.js": 261,
+	"./hr": 262,
+	"./hr.js": 262,
+	"./hu": 263,
+	"./hu.js": 263,
+	"./hy-am": 264,
+	"./hy-am.js": 264,
+	"./id": 265,
+	"./id.js": 265,
+	"./is": 266,
+	"./is.js": 266,
+	"./it": 267,
+	"./it-ch": 268,
+	"./it-ch.js": 268,
+	"./it.js": 267,
+	"./ja": 269,
+	"./ja.js": 269,
+	"./jv": 270,
+	"./jv.js": 270,
+	"./ka": 271,
+	"./ka.js": 271,
+	"./kk": 272,
+	"./kk.js": 272,
+	"./km": 273,
+	"./km.js": 273,
+	"./kn": 274,
+	"./kn.js": 274,
+	"./ko": 275,
+	"./ko.js": 275,
+	"./ku": 276,
+	"./ku.js": 276,
+	"./ky": 277,
+	"./ky.js": 277,
+	"./lb": 278,
+	"./lb.js": 278,
+	"./lo": 279,
+	"./lo.js": 279,
+	"./lt": 280,
+	"./lt.js": 280,
+	"./lv": 281,
+	"./lv.js": 281,
+	"./me": 282,
+	"./me.js": 282,
+	"./mi": 283,
+	"./mi.js": 283,
+	"./mk": 284,
+	"./mk.js": 284,
+	"./ml": 285,
+	"./ml.js": 285,
+	"./mn": 286,
+	"./mn.js": 286,
+	"./mr": 287,
+	"./mr.js": 287,
+	"./ms": 288,
+	"./ms-my": 289,
+	"./ms-my.js": 289,
+	"./ms.js": 288,
+	"./mt": 290,
+	"./mt.js": 290,
+	"./my": 291,
+	"./my.js": 291,
+	"./nb": 292,
+	"./nb.js": 292,
+	"./ne": 293,
+	"./ne.js": 293,
+	"./nl": 294,
+	"./nl-be": 295,
+	"./nl-be.js": 295,
+	"./nl.js": 294,
+	"./nn": 296,
+	"./nn.js": 296,
+	"./oc-lnc": 297,
+	"./oc-lnc.js": 297,
+	"./pa-in": 298,
+	"./pa-in.js": 298,
+	"./pl": 299,
+	"./pl.js": 299,
+	"./pt": 300,
+	"./pt-br": 301,
+	"./pt-br.js": 301,
+	"./pt.js": 300,
+	"./ro": 302,
+	"./ro.js": 302,
+	"./ru": 303,
+	"./ru.js": 303,
+	"./sd": 304,
+	"./sd.js": 304,
+	"./se": 305,
+	"./se.js": 305,
+	"./si": 306,
+	"./si.js": 306,
+	"./sk": 307,
+	"./sk.js": 307,
+	"./sl": 308,
+	"./sl.js": 308,
+	"./sq": 309,
+	"./sq.js": 309,
+	"./sr": 310,
+	"./sr-cyrl": 311,
+	"./sr-cyrl.js": 311,
+	"./sr.js": 310,
+	"./ss": 312,
+	"./ss.js": 312,
+	"./sv": 313,
+	"./sv.js": 313,
+	"./sw": 314,
+	"./sw.js": 314,
+	"./ta": 315,
+	"./ta.js": 315,
+	"./te": 316,
+	"./te.js": 316,
+	"./tet": 317,
+	"./tet.js": 317,
+	"./tg": 318,
+	"./tg.js": 318,
+	"./th": 319,
+	"./th.js": 319,
+	"./tk": 320,
+	"./tk.js": 320,
+	"./tl-ph": 321,
+	"./tl-ph.js": 321,
+	"./tlh": 322,
+	"./tlh.js": 322,
+	"./tr": 323,
+	"./tr.js": 323,
+	"./tzl": 324,
+	"./tzl.js": 324,
+	"./tzm": 325,
+	"./tzm-latn": 326,
+	"./tzm-latn.js": 326,
+	"./tzm.js": 325,
+	"./ug-cn": 327,
+	"./ug-cn.js": 327,
+	"./uk": 328,
+	"./uk.js": 328,
+	"./ur": 329,
+	"./ur.js": 329,
+	"./uz": 330,
+	"./uz-latn": 331,
+	"./uz-latn.js": 331,
+	"./uz.js": 330,
+	"./vi": 332,
+	"./vi.js": 332,
+	"./x-pseudo": 333,
+	"./x-pseudo.js": 333,
+	"./yo": 334,
+	"./yo.js": 334,
+	"./zh-cn": 335,
+	"./zh-cn.js": 335,
+	"./zh-hk": 336,
+	"./zh-hk.js": 336,
+	"./zh-mo": 337,
+	"./zh-mo.js": 337,
+	"./zh-tw": 338,
+	"./zh-tw.js": 338
 };
 function webpackContext(req) {
 	return __webpack_require__(webpackContextResolve(req));
@@ -1266,27 +1401,27 @@ webpackContext.keys = function webpackContextKeys() {
 };
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
-webpackContext.id = 427;
+webpackContext.id = 434;
 
 /***/ }),
 
-/***/ 430:
+/***/ 437:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MyApp; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(332);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(335);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_my_profile_my_profile__ = __webpack_require__(336);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(339);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(342);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_my_profile_my_profile__ = __webpack_require__(343);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_my_bookings_my_bookings__ = __webpack_require__(105);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_home_home__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_doc_verificatino_doc_verificatino__ = __webpack_require__(345);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_terms_condition_terms_condition__ = __webpack_require__(347);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_support_support__ = __webpack_require__(348);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_sign_in_sign_in__ = __webpack_require__(349);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__node_modules_ngx_translate_core__ = __webpack_require__(202);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_home_home__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_doc_verificatino_doc_verificatino__ = __webpack_require__(352);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_terms_condition_terms_condition__ = __webpack_require__(354);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_support_support__ = __webpack_require__(355);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_sign_in_sign_in__ = __webpack_require__(356);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__node_modules_ngx_translate_core__ = __webpack_require__(203);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1371,14 +1506,14 @@ var MyApp = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 439:
+/***/ 446:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return VerificationPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__home_home__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__home_home__ = __webpack_require__(31);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1411,12 +1546,12 @@ var VerificationPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 440:
+/***/ 447:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ProvidersSignInSignInProvider; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_common_http__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_common_http__ = __webpack_require__(27);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1449,14 +1584,7 @@ var ProvidersSignInSignInProvider = /** @class */ (function () {
 
 //# sourceMappingURL=providers-sign-in-sign-in.js.map
 
-/***/ }),
-
-/***/ 448:
-/***/ (function(module, exports) {
-
-//# sourceMappingURL=ebike-api.js.map
-
 /***/ })
 
-},[351]);
+},[358]);
 //# sourceMappingURL=main.js.map
