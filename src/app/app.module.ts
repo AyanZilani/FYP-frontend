@@ -27,10 +27,11 @@ import { Sign_upPage } from '../pages/sign_up/sign_up';
 import { SupportPage } from '../pages/support/support';
 import { Terms_conditionPage } from '../pages/terms_condition/terms_condition';
 import { VerificationPage } from '../pages/verification/verification';
- 
+
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { ProvidersSignInSignInProvider } from '../providers/providers-sign-in-sign-in/providers-sign-in-sign-in';
+import { EbikeApiProvider } from '../providers/api/ebike-api';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -39,7 +40,7 @@ export function createTranslateLoader(http: HttpClient) {
 @NgModule({
   declarations: [
     MyApp,
-    Book_carPage, 
+    Book_carPage,
     BookedPage,
     Car_listPage,
     Doc_verificatinoPage,
@@ -59,7 +60,7 @@ export function createTranslateLoader(http: HttpClient) {
     Terms_conditionPage,
     VerificationPage
   ],
-    imports: [
+  imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
     CalendarModule,
@@ -98,8 +99,9 @@ export function createTranslateLoader(http: HttpClient) {
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
-    ProvidersSignInSignInProvider
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
+    ProvidersSignInSignInProvider,
+    EbikeApiProvider
   ]
 })
-export class AppModule {}
+export class AppModule { }
