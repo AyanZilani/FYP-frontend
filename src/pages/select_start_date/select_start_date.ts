@@ -13,7 +13,7 @@ export class Select_start_datePage {
    // timeStarts: '07:30',
   }
 
-  trip: any = {startDate:''};
+  trip: any = {startDate:'YYYY-MM-DD HH:mm:ss'};
   constructor(public navCtrl: NavController, private http: HttpClient) {
     
 

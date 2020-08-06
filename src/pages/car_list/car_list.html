@@ -21,10 +21,10 @@
 <ion-content class="bg-color">
     <div class="container">
         <ion-list no-lines no-margin>
-            <ion-item>
+            <ion-item *ngFor="let item of bike">
                 <ion-row>
                     <ion-col col-8>
-                        <h2>Bike 1</h2>
+                        <h2>{{item.bike_number}}</h2>
                        <!---- <h5>5 Seater | White</h5>-->
                         <p class="d-flex">
                             <ion-icon class="zmdi zmdi-pin"></ion-icon>
@@ -32,7 +32,7 @@
                         </p>
 
                         <div class="btn_box d-flex ">
-                            <h3 class="without_fuel">Available
+                            <h3 class="without_fuel">{{bike.bike_status}}
                                 <span>Status</span>
                             </h3>
                           <!----  <h3 class="with_fuel">$150.00

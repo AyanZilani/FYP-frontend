@@ -42,7 +42,8 @@ var My_bookingsPage = /** @class */ (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Select_end_datePage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__home_home__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__home_home__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_common_http__ = __webpack_require__(30);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -55,21 +56,28 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var Select_end_datePage = /** @class */ (function () {
-    function Select_end_datePage(navCtrl) {
+    function Select_end_datePage(navCtrl, http) {
         this.navCtrl = navCtrl;
+        this.http = http;
         this.event = {
             timeStarts: '10:30',
         };
+        this.trip = { endDate: 'YYYY-MM-DD HH:mm:ss' };
     }
     Select_end_datePage.prototype.home = function () {
+        console.log("Selecting End date ....", this.trip);
+        this.http.post('http://localhost:3000/api/endDates', {
+            endDate: this.trip.endDate,
+        }).subscribe(function (response) { console.log(response); }, function (error) { console.log(error); });
         this.navCtrl.setRoot(__WEBPACK_IMPORTED_MODULE_2__home_home__["a" /* HomePage */]);
     };
     Select_end_datePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-select_end_date',template:/*ion-inline-start:"I:\STUDY\FYP\CarZilla Source code\src\pages\select_end_date\select_end_date.html"*/'<ion-header>\n    <ion-navbar>\n        <button ion-button menuToggle>\n            <ion-icon name="menu"></ion-icon>\n        </button>\n        <ion-title>{{\'select_end_date\' | translate}}</ion-title>\n    </ion-navbar>\n</ion-header>\n\n<ion-content class="bg-color">\n    <div class="calendar_box">\n        <ion-calendar #calendar lang="en"></ion-calendar>\n    </div>\n\n    <div class="select_date">\n        <h2>{{\'select_trip_end_time\' | translate}}</h2>\n        <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A" [(ngModel)]="event.timeStarts"></ion-datetime>\n        <h3>{{\'tab_to_select\' | translate}}</h3>\n    </div>\n</ion-content>\n<ion-footer no-border>\n   <button ion-button  no-margin full class="btn" (click)="home()">{{\'continue\' | translate}}</button>\n</ion-footer>'/*ion-inline-end:"I:\STUDY\FYP\CarZilla Source code\src\pages\select_end_date\select_end_date.html"*/
+            selector: 'page-select_end_date',template:/*ion-inline-start:"I:\STUDY\FYP\CarZilla Source code\src\pages\select_end_date\select_end_date.html"*/'<ion-header>\n    <ion-navbar>\n        <button ion-button menuToggle>\n            <ion-icon name="menu"></ion-icon>\n        </button>\n        <ion-title>{{\'select_end_date\' | translate}}</ion-title>\n    </ion-navbar>\n</ion-header>\n\n<ion-content class="bg-color">\n    <div class="calendar_box">\n        <ion-calendar #calendar lang="en"></ion-calendar>\n    </div>\n\n    <div class="select_date">\n        <h2>{{\'select_trip_end_time\' | translate}}</h2>\n        <ion-datetime displayFormat="h:mm A" pickerFormat="YYYY-MM-DD HH:mm:ss" [(ngModel)]="trip.endDate"></ion-datetime>\n        <h3>{{\'tab_to_select\' | translate}}</h3>\n    </div>\n</ion-content>\n<ion-footer no-border>\n   <button ion-button  no-margin full class="btn" (click)="home()">{{\'continue\' | translate}}</button>\n</ion-footer>'/*ion-inline-end:"I:\STUDY\FYP\CarZilla Source code\src\pages\select_end_date\select_end_date.html"*/
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */], __WEBPACK_IMPORTED_MODULE_3__angular_common_http__["a" /* HttpClient */]])
     ], Select_end_datePage);
     return Select_end_datePage;
 }());
@@ -112,7 +120,7 @@ webpackEmptyAsyncContext.id = 161;
 
 /***/ }),
 
-/***/ 30:
+/***/ 31:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -123,7 +131,7 @@ webpackEmptyAsyncContext.id = 161;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__select_start_date_select_start_date__ = __webpack_require__(339);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__select_end_date_select_end_date__ = __webpack_require__(106);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__car_list_car_list__ = __webpack_require__(340);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__angular_common_http__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__angular_common_http__ = __webpack_require__(30);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -141,13 +149,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 var HomePage = /** @class */ (function () {
-    //  public event = {
-    //    startTip: '2019-06-15',
-    //    endTrip: '2019-06-18'
-    //  }
     function HomePage(navCtrl, http) {
         this.navCtrl = navCtrl;
         this.http = http;
+        //  public event = {
+        //    startTip: '2019-06-15',
+        //    endTrip: '2019-06-18'
+        //  }
+        this.bike = { bike_number: '', bike_status: '' };
     }
     HomePage.prototype.select_city = function () {
         this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_2__select_city_select_city__["a" /* Select_cityPage */]);
@@ -159,6 +168,14 @@ var HomePage = /** @class */ (function () {
         this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_4__select_end_date_select_end_date__["a" /* Select_end_datePage */]);
     };
     HomePage.prototype.car_list = function () {
+        var _this = this;
+        console.log("Getting list of bikes ....", this.bike);
+        var data;
+        data = this.http.get('http://localhost:3000/api/bikes'),
+            data.subscribe(function (response) {
+                console.log(response),
+                    _this.bike = response;
+            }, function (error) { console.log(error); });
         this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_5__car_list_car_list__["a" /* Car_listPage */]);
     };
     HomePage = __decorate([
@@ -257,7 +274,7 @@ var Select_cityPage = /** @class */ (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Pick_drop_locationPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__home_home__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__home_home__ = __webpack_require__(31);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -298,7 +315,7 @@ var Pick_drop_locationPage = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__select_end_date_select_end_date__ = __webpack_require__(106);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_common_http__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_common_http__ = __webpack_require__(30);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -318,7 +335,7 @@ var Select_start_datePage = /** @class */ (function () {
         this.navCtrl = navCtrl;
         this.http = http;
         this.event = {};
-        this.trip = { startDate: '' };
+        this.trip = { startDate: 'YYYY-MM-DD HH:mm:ss' };
     }
     Select_start_datePage.prototype.select_end_date = function () {
         console.log("Selecting Start date ....", this.trip);
@@ -329,7 +346,7 @@ var Select_start_datePage = /** @class */ (function () {
     };
     Select_start_datePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-select_start_date',template:/*ion-inline-start:"I:\STUDY\FYP\CarZilla Source code\src\pages\select_start_date\select_start_date.html"*/'<ion-header>\n    <ion-navbar>\n        <button ion-button menuToggle>\n            <ion-icon name="menu"></ion-icon>\n        </button>\n        <ion-title>{{\'select_start_date\' | translate}}</ion-title>\n    </ion-navbar>\n</ion-header>\n\n<ion-content class="bg-color">\n    <div class="calendar_box">\n        <ion-calendar #calendar lang="en"></ion-calendar>\n    </div>\n\n    <div class="select_date">\n        <h2>{{\'select_trip_start_time\' | translate}}</h2>\n        <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A" [(ngModel)]="trip.startDate"></ion-datetime>\n        <h3>{{\'tab_to_select\' | translate}}</h3>\n    </div>\n</ion-content>\n<ion-footer no-border>\n   <button ion-button  no-margin full class="btn" (click)="select_end_date()">{{\'select_end_date\' | translate}}</button>\n</ion-footer>'/*ion-inline-end:"I:\STUDY\FYP\CarZilla Source code\src\pages\select_start_date\select_start_date.html"*/
+            selector: 'page-select_start_date',template:/*ion-inline-start:"I:\STUDY\FYP\CarZilla Source code\src\pages\select_start_date\select_start_date.html"*/'<ion-header>\n    <ion-navbar>\n        <button ion-button menuToggle>\n            <ion-icon name="menu"></ion-icon>\n        </button>\n        <ion-title>{{\'select_start_date\' | translate}}</ion-title>\n    </ion-navbar>\n</ion-header>\n\n<ion-content class="bg-color">\n    <div class="calendar_box">\n        <ion-calendar #calendar lang="en"></ion-calendar>\n    </div>\n\n    <div class="select_date">\n        <h2>{{\'select_trip_start_time\' | translate}}</h2>\n        <ion-datetime displayFormat="h:mm A" pickerFormat="YYYY-MM-DD HH:mm:ss" [(ngModel)]="trip.startDate"></ion-datetime>\n        <h3>{{\'tab_to_select\' | translate}}</h3>\n    </div>\n</ion-content>\n<ion-footer no-border>\n   <button ion-button  no-margin full class="btn" (click)="select_end_date()">{{\'select_end_date\' | translate}}</button>\n</ion-footer>'/*ion-inline-end:"I:\STUDY\FYP\CarZilla Source code\src\pages\select_start_date\select_start_date.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */], __WEBPACK_IMPORTED_MODULE_3__angular_common_http__["a" /* HttpClient */]])
     ], Select_start_datePage);
@@ -362,6 +379,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+//import { HttpClient } from '@angular/common/http';
 var Car_listPage = /** @class */ (function () {
     function Car_listPage(navCtrl) {
         this.navCtrl = navCtrl;
@@ -374,7 +392,7 @@ var Car_listPage = /** @class */ (function () {
     };
     Car_listPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-car_list',template:/*ion-inline-start:"I:\STUDY\FYP\CarZilla Source code\src\pages\car_list\car_list.html"*/'<ion-header>\n    <ion-navbar>\n        <button ion-button menuToggle>\n            <ion-icon name="menu"></ion-icon>\n        </button>\n        <ion-title>Campus Bike UTM, Faculty Alam Bina parking</ion-title>\n    </ion-navbar>\n    <ion-row>\n        <ion-col col-5 text-start>\n            <p>Sat, 15 Jun, 5:30 pm</p>\n        </ion-col>\n        <ion-col col-2 text-center>\n            <ion-icon class="zmdi zmdi-arrow-right"></ion-icon>\n        </ion-col>\n        <ion-col col-5 text-end>\n            <p>Tue, 18 Jun, 10:30 pm</p>\n        </ion-col>\n    </ion-row>\n</ion-header>\n\n<ion-content class="bg-color">\n    <div class="container">\n        <ion-list no-lines no-margin>\n            <ion-item>\n                <ion-row>\n                    <ion-col col-8>\n                        <h2>Bike 1</h2>\n                       <!---- <h5>5 Seater | White</h5>-->\n                        <p class="d-flex">\n                            <ion-icon class="zmdi zmdi-pin"></ion-icon>\n                            Campus Bike UTM, Faculty Alam Bina parking\n                        </p>\n\n                        <div class="btn_box d-flex ">\n                            <h3 class="without_fuel">Available\n                                <span>Status</span>\n                            </h3>\n                          <!----  <h3 class="with_fuel">$150.00\n                                <span> With fuel</span>\n                            </h3>-->\n                        </div>\n                    </ion-col>\n                    <ion-col col-4>\n                        <div class="car_img">\n                            <img src="assets/imgs/Bike_image 1.jpg">\n                        </div>\n                        <button ion-button no-margin block class="btn" (click)="book_car()">{{\'book_now\' | translate}}</button>\n                    </ion-col>\n                </ion-row>\n            </ion-item>\n\n            <ion-item>\n                <ion-row>\n                    <ion-col col-8>\n                        <h2>Bike 2</h2>\n                        <!---- <h5>5 Seater | White</h5>-->\n                         <p class="d-flex">\n                             <ion-icon class="zmdi zmdi-pin"></ion-icon>\n                             Campus Bike UTM, Faculty Alam Bina parking\n                         </p>\n \n                         <div class="btn_box d-flex ">\n                             <h3 class="without_fuel">Available\n                                 <span>Status</span>\n                             </h3>\n                           <!----  <h3 class="with_fuel">$150.00\n                                 <span> With fuel</span>\n                             </h3>-->\n                         </div>\n                    </ion-col>\n                    <ion-col col-4>\n                        <div class="car_img">\n                            <img src="assets/imgs/Bike_image 2.jpg">\n                        </div>\n                        <button ion-button no-margin block class="btn" (click)="book_car()">{{\'book_now\' | translate}}</button>\n                    </ion-col>\n                </ion-row>\n            </ion-item>\n\n            <ion-item>\n                <ion-row>\n                    <ion-col col-8>\n                        <h2>Bike 3</h2>\n                        <!---- <h5>5 Seater | White</h5>-->\n                         <p class="d-flex">\n                             <ion-icon class="zmdi zmdi-pin"></ion-icon>\n                             Campus Bike UTM, Faculty Alam Bina parking\n                         </p>\n \n                         <div class="btn_box d-flex ">\n                             <h3 class="without_fuel">Available\n                                 <span>Status</span>\n                             </h3>\n                           <!----  <h3 class="with_fuel">$150.00\n                                 <span> With fuel</span>\n                             </h3>-->\n                         </div>\n                    </ion-col>\n                    <ion-col col-4>\n                        <div class="car_img">\n                            <img src="assets/imgs/Bike_image 3.jpg">\n                        </div>\n                        <button ion-button no-margin block class="btn" (click)="book_car()">{{\'book_now\' | translate}}</button>\n                    </ion-col>\n                </ion-row>\n            </ion-item>\n\n            <ion-item>\n                <ion-row>\n                    <ion-col col-8>\n                        <h2>Bike 4</h2>\n                        <!---- <h5>5 Seater | White</h5>-->\n                         <p class="d-flex">\n                             <ion-icon class="zmdi zmdi-pin"></ion-icon>\n                             Campus Bike UTM, Faculty Alam Bina parking\n                         </p>\n \n                         <div class="btn_box d-flex ">\n                             <h3 class="without_fuel">Available\n                                 <span>Status</span>\n                             </h3>\n                           <!----  <h3 class="with_fuel">$150.00\n                                 <span> With fuel</span>\n                             </h3>-->\n                         </div>\n                    </ion-col>\n                    <ion-col col-4>\n                        <div class="car_img">\n                            <img src="assets/imgs/Bike_image 4.jpg">\n                        </div>\n                        <button ion-button no-margin block class="btn" (click)="book_car()">{{\'book_now\' | translate}}</button>\n                    </ion-col>\n                </ion-row>\n            </ion-item>\n\n            <ion-item>\n                <ion-row>\n                    <ion-col col-8>\n                        <h2>Bike 5</h2>\n                        <!---- <h5>5 Seater | White</h5>-->\n                         <p class="d-flex">\n                             <ion-icon class="zmdi zmdi-pin"></ion-icon>\n                             Campus Bike UTM, Faculty Alam Bina parking\n                         </p>\n \n                         <div class="btn_box d-flex ">\n                             <h3 class="without_fuel">Available\n                                 <span>Status</span>\n                             </h3>\n                           <!----  <h3 class="with_fuel">$150.00\n                                 <span> With fuel</span>\n                             </h3>-->\n                         </div>\n                    </ion-col>\n                    <ion-col col-4>\n                        <div class="car_img">\n                            <img src="assets/imgs/Bike_image 5.jpg">\n                        </div>\n                        <button ion-button no-margin block class="btn" (click)="book_car()">{{\'book_now\' | translate}}</button>\n                    </ion-col>\n                </ion-row>\n            </ion-item>\n\n            <ion-item>\n                <ion-row>\n                    <ion-col col-8>\n                        <h2>Bike 6</h2>\n                        <!---- <h5>5 Seater | White</h5>-->\n                         <p class="d-flex">\n                             <ion-icon class="zmdi zmdi-pin"></ion-icon>\n                             Campus Bike UTM, Faculty Alam Bina parking\n                         </p>\n \n                         <div class="btn_box d-flex ">\n                             <h3 class="without_fuel">Available\n                                 <span>Status</span>\n                             </h3>\n                           <!----  <h3 class="with_fuel">$150.00\n                                 <span> With fuel</span>\n                             </h3>-->\n                         </div>\n                    </ion-col>\n                    <ion-col col-4>\n                        <div class="car_img">\n                            <img src="assets/imgs/Bike_image 6.jpg">\n                        </div>\n                        <button ion-button no-margin block class="btn" (click)="book_car()">{{\'book_now\' | translate}}</button>\n                    </ion-col>\n                </ion-row>\n            </ion-item>\n\n            <ion-item>\n                <ion-row>\n                    <ion-col col-8>\n                        <h2>Bike 7</h2>\n                        <!---- <h5>5 Seater | White</h5>-->\n                         <p class="d-flex">\n                             <ion-icon class="zmdi zmdi-pin"></ion-icon>\n                             Campus Bike UTM, Faculty Alam Bina parking\n                         </p>\n \n                         <div class="btn_box d-flex ">\n                             <h3 class="without_fuel">Available\n                                 <span>Status</span>\n                             </h3>\n                           <!----  <h3 class="with_fuel">$150.00\n                                 <span> With fuel</span>\n                             </h3>-->\n                         </div>\n                    </ion-col>\n                    <ion-col col-4>\n                        <div class="car_img">\n                            <img src="assets/imgs/Bike_image 7.jpg">\n                        </div>\n                        <button ion-button no-margin block class="btn" (click)="book_car()">{{\'book_now\' | translate}}</button>\n                    </ion-col>\n                </ion-row>\n            </ion-item>\n\n            <ion-item>\n                <ion-row>\n                    <ion-col col-8>\n                        <h2>Bike 8</h2>\n                        <!---- <h5>5 Seater | White</h5>-->\n                         <p class="d-flex">\n                             <ion-icon class="zmdi zmdi-pin"></ion-icon>\n                             Campus Bike UTM, Faculty Alam Bina parking\n                         </p>\n \n                         <div class="btn_box d-flex ">\n                             <h3 class="without_fuel">Available\n                                 <span>Status</span>\n                             </h3>\n                           <!----  <h3 class="with_fuel">$150.00\n                                 <span> With fuel</span>\n                             </h3>-->\n                         </div>\n                    </ion-col>\n                    <ion-col col-4>\n                        <div class="car_img">\n                            <img src="assets/imgs/Bike_image 8.jpg">\n                        </div>\n                        <button ion-button no-margin block class="btn" (click)="book_car()">{{\'book_now\' | translate}}</button>\n                    </ion-col>\n                </ion-row>\n            </ion-item>\n        </ion-list>\n    </div>\n</ion-content>\n\n<ion-footer no-border>\n    <div class="icon_box d-flex" (click)="filters()">\n        <ion-badge item-end>1</ion-badge>\n        <ion-icon class="zmdi zmdi-filter-list end"></ion-icon>\n    </div>\n</ion-footer>'/*ion-inline-end:"I:\STUDY\FYP\CarZilla Source code\src\pages\car_list\car_list.html"*/
+            selector: 'page-car_list',template:/*ion-inline-start:"I:\STUDY\FYP\CarZilla Source code\src\pages\car_list\car_list.html"*/'<ion-header>\n    <ion-navbar>\n        <button ion-button menuToggle>\n            <ion-icon name="menu"></ion-icon>\n        </button>\n        <ion-title>Campus Bike UTM, Faculty Alam Bina parking</ion-title>\n    </ion-navbar>\n    <ion-row>\n        <ion-col col-5 text-start>\n            <p>Sat, 15 Jun, 5:30 pm</p>\n        </ion-col>\n        <ion-col col-2 text-center>\n            <ion-icon class="zmdi zmdi-arrow-right"></ion-icon>\n        </ion-col>\n        <ion-col col-5 text-end>\n            <p>Tue, 18 Jun, 10:30 pm</p>\n        </ion-col>\n    </ion-row>\n</ion-header>\n\n<ion-content class="bg-color">\n    <div class="container">\n        <ion-list no-lines no-margin>\n            <ion-item *ngFor="let item of bike">\n                <ion-row>\n                    <ion-col col-8>\n                        <h2>{{item.bike_number}}</h2>\n                       <!---- <h5>5 Seater | White</h5>-->\n                        <p class="d-flex">\n                            <ion-icon class="zmdi zmdi-pin"></ion-icon>\n                            Campus Bike UTM, Faculty Alam Bina parking\n                        </p>\n\n                        <div class="btn_box d-flex ">\n                            <h3 class="without_fuel">{{bike.bike_status}}\n                                <span>Status</span>\n                            </h3>\n                          <!----  <h3 class="with_fuel">$150.00\n                                <span> With fuel</span>\n                            </h3>-->\n                        </div>\n                    </ion-col>\n                    <ion-col col-4>\n                        <div class="car_img">\n                            <img src="assets/imgs/Bike_image 1.jpg">\n                        </div>\n                        <button ion-button no-margin block class="btn" (click)="book_car()">{{\'book_now\' | translate}}</button>\n                    </ion-col>\n                </ion-row>\n            </ion-item>\n\n            <ion-item>\n                <ion-row>\n                    <ion-col col-8>\n                        <h2>Bike 2</h2>\n                        <!---- <h5>5 Seater | White</h5>-->\n                         <p class="d-flex">\n                             <ion-icon class="zmdi zmdi-pin"></ion-icon>\n                             Campus Bike UTM, Faculty Alam Bina parking\n                         </p>\n \n                         <div class="btn_box d-flex ">\n                             <h3 class="without_fuel">Available\n                                 <span>Status</span>\n                             </h3>\n                           <!----  <h3 class="with_fuel">$150.00\n                                 <span> With fuel</span>\n                             </h3>-->\n                         </div>\n                    </ion-col>\n                    <ion-col col-4>\n                        <div class="car_img">\n                            <img src="assets/imgs/Bike_image 2.jpg">\n                        </div>\n                        <button ion-button no-margin block class="btn" (click)="book_car()">{{\'book_now\' | translate}}</button>\n                    </ion-col>\n                </ion-row>\n            </ion-item>\n\n            <ion-item>\n                <ion-row>\n                    <ion-col col-8>\n                        <h2>Bike 3</h2>\n                        <!---- <h5>5 Seater | White</h5>-->\n                         <p class="d-flex">\n                             <ion-icon class="zmdi zmdi-pin"></ion-icon>\n                             Campus Bike UTM, Faculty Alam Bina parking\n                         </p>\n \n                         <div class="btn_box d-flex ">\n                             <h3 class="without_fuel">Available\n                                 <span>Status</span>\n                             </h3>\n                           <!----  <h3 class="with_fuel">$150.00\n                                 <span> With fuel</span>\n                             </h3>-->\n                         </div>\n                    </ion-col>\n                    <ion-col col-4>\n                        <div class="car_img">\n                            <img src="assets/imgs/Bike_image 3.jpg">\n                        </div>\n                        <button ion-button no-margin block class="btn" (click)="book_car()">{{\'book_now\' | translate}}</button>\n                    </ion-col>\n                </ion-row>\n            </ion-item>\n\n            <ion-item>\n                <ion-row>\n                    <ion-col col-8>\n                        <h2>Bike 4</h2>\n                        <!---- <h5>5 Seater | White</h5>-->\n                         <p class="d-flex">\n                             <ion-icon class="zmdi zmdi-pin"></ion-icon>\n                             Campus Bike UTM, Faculty Alam Bina parking\n                         </p>\n \n                         <div class="btn_box d-flex ">\n                             <h3 class="without_fuel">Available\n                                 <span>Status</span>\n                             </h3>\n                           <!----  <h3 class="with_fuel">$150.00\n                                 <span> With fuel</span>\n                             </h3>-->\n                         </div>\n                    </ion-col>\n                    <ion-col col-4>\n                        <div class="car_img">\n                            <img src="assets/imgs/Bike_image 4.jpg">\n                        </div>\n                        <button ion-button no-margin block class="btn" (click)="book_car()">{{\'book_now\' | translate}}</button>\n                    </ion-col>\n                </ion-row>\n            </ion-item>\n\n            <ion-item>\n                <ion-row>\n                    <ion-col col-8>\n                        <h2>Bike 5</h2>\n                        <!---- <h5>5 Seater | White</h5>-->\n                         <p class="d-flex">\n                             <ion-icon class="zmdi zmdi-pin"></ion-icon>\n                             Campus Bike UTM, Faculty Alam Bina parking\n                         </p>\n \n                         <div class="btn_box d-flex ">\n                             <h3 class="without_fuel">Available\n                                 <span>Status</span>\n                             </h3>\n                           <!----  <h3 class="with_fuel">$150.00\n                                 <span> With fuel</span>\n                             </h3>-->\n                         </div>\n                    </ion-col>\n                    <ion-col col-4>\n                        <div class="car_img">\n                            <img src="assets/imgs/Bike_image 5.jpg">\n                        </div>\n                        <button ion-button no-margin block class="btn" (click)="book_car()">{{\'book_now\' | translate}}</button>\n                    </ion-col>\n                </ion-row>\n            </ion-item>\n\n            <ion-item>\n                <ion-row>\n                    <ion-col col-8>\n                        <h2>Bike 6</h2>\n                        <!---- <h5>5 Seater | White</h5>-->\n                         <p class="d-flex">\n                             <ion-icon class="zmdi zmdi-pin"></ion-icon>\n                             Campus Bike UTM, Faculty Alam Bina parking\n                         </p>\n \n                         <div class="btn_box d-flex ">\n                             <h3 class="without_fuel">Available\n                                 <span>Status</span>\n                             </h3>\n                           <!----  <h3 class="with_fuel">$150.00\n                                 <span> With fuel</span>\n                             </h3>-->\n                         </div>\n                    </ion-col>\n                    <ion-col col-4>\n                        <div class="car_img">\n                            <img src="assets/imgs/Bike_image 6.jpg">\n                        </div>\n                        <button ion-button no-margin block class="btn" (click)="book_car()">{{\'book_now\' | translate}}</button>\n                    </ion-col>\n                </ion-row>\n            </ion-item>\n\n            <ion-item>\n                <ion-row>\n                    <ion-col col-8>\n                        <h2>Bike 7</h2>\n                        <!---- <h5>5 Seater | White</h5>-->\n                         <p class="d-flex">\n                             <ion-icon class="zmdi zmdi-pin"></ion-icon>\n                             Campus Bike UTM, Faculty Alam Bina parking\n                         </p>\n \n                         <div class="btn_box d-flex ">\n                             <h3 class="without_fuel">Available\n                                 <span>Status</span>\n                             </h3>\n                           <!----  <h3 class="with_fuel">$150.00\n                                 <span> With fuel</span>\n                             </h3>-->\n                         </div>\n                    </ion-col>\n                    <ion-col col-4>\n                        <div class="car_img">\n                            <img src="assets/imgs/Bike_image 7.jpg">\n                        </div>\n                        <button ion-button no-margin block class="btn" (click)="book_car()">{{\'book_now\' | translate}}</button>\n                    </ion-col>\n                </ion-row>\n            </ion-item>\n\n            <ion-item>\n                <ion-row>\n                    <ion-col col-8>\n                        <h2>Bike 8</h2>\n                        <!---- <h5>5 Seater | White</h5>-->\n                         <p class="d-flex">\n                             <ion-icon class="zmdi zmdi-pin"></ion-icon>\n                             Campus Bike UTM, Faculty Alam Bina parking\n                         </p>\n \n                         <div class="btn_box d-flex ">\n                             <h3 class="without_fuel">Available\n                                 <span>Status</span>\n                             </h3>\n                           <!----  <h3 class="with_fuel">$150.00\n                                 <span> With fuel</span>\n                             </h3>-->\n                         </div>\n                    </ion-col>\n                    <ion-col col-4>\n                        <div class="car_img">\n                            <img src="assets/imgs/Bike_image 8.jpg">\n                        </div>\n                        <button ion-button no-margin block class="btn" (click)="book_car()">{{\'book_now\' | translate}}</button>\n                    </ion-col>\n                </ion-row>\n            </ion-item>\n        </ion-list>\n    </div>\n</ion-content>\n\n<ion-footer no-border>\n    <div class="icon_box d-flex" (click)="filters()">\n        <ion-badge item-end>1</ion-badge>\n        <ion-icon class="zmdi zmdi-filter-list end"></ion-icon>\n    </div>\n</ion-footer>'/*ion-inline-end:"I:\STUDY\FYP\CarZilla Source code\src\pages\car_list\car_list.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */]])
     ], Car_listPage);
@@ -693,8 +711,8 @@ var SupportPage = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__sign_up_sign_up__ = __webpack_require__(350);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__home_home__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_common_http__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__home_home__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_common_http__ = __webpack_require__(30);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -759,8 +777,8 @@ var Sign_inPage = /** @class */ (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Sign_upPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_common_http__ = __webpack_require__(35);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__home_home__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_common_http__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__home_home__ = __webpack_require__(31);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -826,10 +844,10 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 "use strict";
 /* unused harmony export createTranslateLoader */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(34);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_common_http__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_common_http__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ngx_translate_core__ = __webpack_require__(202);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ngx_translate_http_loader__ = __webpack_require__(422);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_ionic3_calendar_en__ = __webpack_require__(424);
@@ -840,7 +858,7 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_doc_verificatino_doc_verificatino__ = __webpack_require__(345);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_doc_verified_doc_verified__ = __webpack_require__(346);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__pages_filters_filters__ = __webpack_require__(344);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__pages_home_home__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__pages_home_home__ = __webpack_require__(31);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__pages_my_bookings_my_bookings__ = __webpack_require__(105);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__pages_my_profile_my_profile__ = __webpack_require__(336);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__pages_payment_payment__ = __webpack_require__(342);
@@ -1263,7 +1281,7 @@ webpackContext.id = 427;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(335);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_my_profile_my_profile__ = __webpack_require__(336);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_my_bookings_my_bookings__ = __webpack_require__(105);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_home_home__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_home_home__ = __webpack_require__(31);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_doc_verificatino_doc_verificatino__ = __webpack_require__(345);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_terms_condition_terms_condition__ = __webpack_require__(347);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_support_support__ = __webpack_require__(348);
@@ -1360,7 +1378,7 @@ var MyApp = /** @class */ (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return VerificationPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__home_home__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__home_home__ = __webpack_require__(31);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1398,7 +1416,7 @@ var VerificationPage = /** @class */ (function () {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ProvidersSignInSignInProvider; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_common_http__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_common_http__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;

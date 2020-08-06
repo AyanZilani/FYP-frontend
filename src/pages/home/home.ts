@@ -5,7 +5,8 @@ import { NavController } from 'ionic-angular';
  import { Select_start_datePage } from '../select_start_date/select_start_date';
  import { Select_end_datePage } from '../select_end_date/select_end_date';
  import { Car_listPage } from '../car_list/car_list';
- import { HttpClient } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -16,7 +17,7 @@ export class HomePage {
 //    endTrip: '2019-06-18'
 //  }
 
-
+bike: any = {bike_number:'',bike_status:''};
   constructor(public navCtrl: NavController, private http: HttpClient) {
     
 
@@ -32,6 +33,12 @@ export class HomePage {
         this.navCtrl.push(Select_end_datePage)
   } 
   car_list(){
+      console.log("Getting list of bikes ....", this.bike);
+      let data:Observable<any>;
+      data = this.http.get('http://localhost:3000/api/bikes'),
+      data.subscribe(response => {
+        console.log(response),
+      this.bike =response;}, error => {console.log(error)})
         this.navCtrl.push(Car_listPage)
   } 
 
