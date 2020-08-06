@@ -1,0 +1,78 @@
+page-filters {
+    .container {
+        margin-top: 26px;
+        padding: 0 3px;
+
+        .list {
+            margin: 0;
+            margin-bottom: 27px;
+
+            h2 {
+                margin: 0;
+                color: lighten($text-light, 27%);
+                font-size: 1.7rem;
+                margin-bottom: 12px;
+                letter-spacing: .5px;
+            }
+
+            .row {
+                margin: 0 -5px;
+
+                //                .col {
+                //                    padding-top: 0;
+                //                    padding-bottom: 0;
+                //                }
+            }
+
+            .item {
+                min-height: unset;
+                padding: 4px 0 4px 0;
+
+                [item-start] {
+                    margin: 0;
+                    margin-right: 13px;
+
+                    &.checkbox {
+                        .checkbox-icon {
+                            width: 14px;
+                            height: 14px;
+                            border-width: 1px;
+
+                            &.checkbox-checked {
+                                background: $theme-color;
+                                border-color: $theme-color;
+                            }
+                        }
+                    }
+
+                    &.radio {
+                        .radio-icon {
+
+                            &.radio-checked {
+                                border-color: $theme-color;
+
+                                .radio-inner {
+                                    background: $theme-color;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .item-inner {
+                    padding: 0;
+                    min-height: unset;
+                    max-height: 25px;
+
+                    .label {
+                        margin: 0;
+                        color: darken($text-light, 100%);
+                        font-size: 1.45rem;
+                        font-weight: 500;
+                        letter-spacing: .5px;
+                    }
+                }
+            }
+        }
+    }
+}

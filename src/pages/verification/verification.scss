@@ -1,0 +1,23 @@
+page-verification {
+    .header.theme_header .toolbar .title .toolbar-title {
+        display: block !important;
+            padding: 0 10px;
+        h2 {
+            margin: 0;
+            white-space: normal;
+            color: darken($text-light, 7%);
+            font-size: 1.7rem;
+            font-weight: 400;
+            margin-top: 7px;
+            line-height: 22px;
+        }
+    }
+
+    .form {
+        margin-top: 34px;
+    }
+
+    .button.btn {
+        margin-top: 67px !important;
+    }
+}

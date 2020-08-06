@@ -1,0 +1,92 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>{{'select_city' | translate}}</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <div class="container">
+        <ion-list no-lines radio-group>
+            <ion-row>
+                <ion-col col-6>
+                    <ion-item>
+                        <ion-label>New York</ion-label>
+                        <ion-radio checked="true" value="1" item-start></ion-radio>
+                    </ion-item>
+                </ion-col>
+                <ion-col col-6>
+                    <ion-item>
+                        <ion-label>Washington</ion-label>
+                        <ion-radio value="2" item-start></ion-radio>
+                    </ion-item>
+                </ion-col>
+                <ion-col col-6>
+                    <ion-item>
+                        <ion-label>Greenville</ion-label>
+                        <ion-radio value="3" item-start></ion-radio>
+                    </ion-item>
+                </ion-col>
+                <ion-col col-6>
+                    <ion-item>
+                        <ion-label>Bristol</ion-label>
+                        <ion-radio value="4" item-start></ion-radio>
+                    </ion-item>
+                </ion-col>
+                <ion-col col-6>
+                    <ion-item>
+                        <ion-label>Clinton</ion-label>
+                        <ion-radio value="5" item-start></ion-radio>
+                    </ion-item>
+                </ion-col>
+                <ion-col col-6>
+                    <ion-item>
+                        <ion-label>Fairview</ion-label>
+                        <ion-radio value="6" item-start></ion-radio>
+                    </ion-item>
+                </ion-col>
+                <ion-col col-6>
+                    <ion-item>
+                        <ion-label>Madison</ion-label>
+                        <ion-radio  value="7" item-start></ion-radio>
+                    </ion-item>
+                </ion-col>
+                <ion-col col-6>
+                    <ion-item>
+                        <ion-label>San Antonio</ion-label>
+                        <ion-radio value="8" item-start></ion-radio>
+                    </ion-item>
+                </ion-col>
+                <ion-col col-6>
+                    <ion-item>
+                        <ion-label>Columbus</ion-label>
+                        <ion-radio value="9" item-start></ion-radio>
+                    </ion-item>
+                </ion-col>
+                <ion-col col-6>
+                    <ion-item>
+                        <ion-label>Columbus</ion-label>
+                        <ion-radio value="10" item-start></ion-radio>
+                    </ion-item>
+                </ion-col>
+                <ion-col col-6>
+                    <ion-item>
+                        <ion-label>Los Angeles</ion-label>
+                        <ion-radio value="11" item-start></ion-radio>
+                    </ion-item>
+                </ion-col>
+                <ion-col col-6>
+                    <ion-item>
+                        <ion-label>San Francisco</ion-label>
+                        <ion-radio value="12" item-start></ion-radio>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+        </ion-list>
+    </div>
+</ion-content>
+<ion-footer no-border>
+   <button ion-button  no-margin full class="btn" (click)="pick_drop_location()">{{'continue' | translate}}</button>
+</ion-footer>

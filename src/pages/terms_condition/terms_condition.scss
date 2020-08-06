@@ -1,0 +1,39 @@
+page-terms_condition {
+    .header.theme_header {
+        .toolbar {
+            padding-bottom: 0;
+
+            .title .toolbar-title {
+                padding: 0 10px;
+                display: block;
+
+                h2 {
+                    margin-top: 3px;
+                }
+
+            }
+        }
+    }
+
+    h2 {
+        margin: 0;
+        color: lighten($text-light, 20%);
+        font-size: 1.6rem;
+        font-weight: 400 !important;
+        letter-spacing: .5px;
+    }
+
+    .container {
+        h2 {
+            margin-top: 25px;
+        }
+    }
+
+    p {
+        margin: 0;
+        margin: 0;
+        margin-top: 25px;
+        line-height: 20px;
+        font-size: 1.44rem;
+    }
+}

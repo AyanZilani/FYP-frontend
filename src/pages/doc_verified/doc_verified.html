@@ -1,0 +1,45 @@
+<ion-header class="theme_header bg-transparent">
+    <ion-navbar>
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>
+            <span class="d-flex">
+                <span>
+                    {{'your_licence_is' | translate}}
+                    <br>
+                    <strong>{{'approved' | translate}}</strong>
+                </span>
+                <ion-icon class="zmdi zmdi-check-circle end"></ion-icon>
+            </span>
+            <h2> {{'we_ve_verified_your_lincence' | translate}}</h2>
+        </ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <div class="add_lincence">
+        <ion-scroll scrollX="true">
+            <div class="img_box center_img active">
+                <img src="assets/imgs/l1.png" class="crop_img">
+                <!--                <ion-icon class="zmdi zmdi-plus-circle"></ion-icon>-->
+            </div>
+            <div class="img_box center_img">
+                <img src="assets/imgs/l2.png" class="crop_img">
+                <!--                <ion-icon class="zmdi zmdi-plus-circle"></ion-icon>-->
+            </div>
+        </ion-scroll>
+    </div>
+</ion-content>
+<ion-footer no-border>
+    <div class='container'>
+        <h2 class="d-flex">
+            <ion-icon class="zmdi zmdi-plus-circle"></ion-icon>
+            {{'add_change_screenshot' | translate}}
+        </h2>
+        <h2 class="d-flex">
+            <ion-icon class="zmdi zmdi-delete"></ion-icon>
+            {{'delete_document' | translate}}
+        </h2>
+    </div>
+</ion-footer>

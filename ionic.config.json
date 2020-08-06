@@ -1,0 +1,7 @@
+{
+  "name": "carZilla",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}

@@ -1,0 +1,41 @@
+<ion-header class="theme_header bg-transparent">
+    <ion-navbar>
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>
+            <span>
+                {{'you_need_to_upload' | translate}}<br> {{'your_driving_licence' | translate}}
+            </span>
+            <h2> {{'upload_goverment' | translate}}</h2>
+        </ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <div class="add_lincence">
+        <ion-scroll scrollX="true">
+            <div class="img_box center_img active">
+                <!--                <img src="assets/imgs/l1.png" class="crop_img">-->
+                <ion-icon class="zmdi zmdi-plus-circle"></ion-icon>
+            </div>
+            <div class="img_box center_img">
+                <!--                <img src="assets/imgs/l2.png" class="crop_img">-->
+                <ion-icon class="zmdi zmdi-plus-circle"></ion-icon>
+            </div>
+        </ion-scroll>
+    </div>
+</ion-content>
+<ion-footer no-border>
+    <div class='container'>
+        <h2 class="d-flex">
+            <ion-icon class="zmdi zmdi-camera"></ion-icon>
+            {{'use_camera' | translate}}
+        </h2>
+        <h2 class="d-flex">
+            <ion-icon class="zmdi zmdi-image"></ion-icon> 
+            {{'upload_from_gallery' | translate}}
+        </h2>
+    </div>
+    <button ion-button no-margin full class="btn" (click)="doc_verified()">{{'verify' | translate}}</button>
+</ion-footer>

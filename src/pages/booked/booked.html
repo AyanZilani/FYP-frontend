@@ -1,0 +1,25 @@
+<!--
+<ion-header>
+    <ion-navbar>
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>booked</ion-title>
+    </ion-navbar>
+</ion-header>
+-->
+
+<ion-content text-center>
+    <div class="banner" text-right>
+        <img src="assets/imgs/img_vector.png">
+    </div> 
+    <h1>{{'booked_successfully' | translate}}</h1>
+
+    <p>Hey Sam, you've booked <br>Bike 3 successfully. <br> Go to My Booking for<br> more booking details.</p>
+    <p>
+        {{'have_a_good_ride' | translate}} !
+    </p>
+</ion-content>
+<ion-footer no-border>
+    <button ion-button no-margin full class="btn" (click)="my_bookings()">{{'my_bookings' | translate}}</button>
+</ion-footer>

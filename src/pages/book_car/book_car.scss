@@ -1,0 +1,176 @@
+page-book_car {
+    .header {
+        background: $theme-color;
+
+        .row {
+            padding: 0 10px;
+            align-items: center;
+
+            .col {
+                color: $white;
+
+                h2 {
+                    margin: 0;
+                    font-size: 1.9rem;
+                    font-weight: 400;
+                    margin-bottom: 10px;
+                }
+
+                h3 {
+                    margin: 0;
+                    font-size: 2.9rem;
+                    font-weight: 400;
+                }
+
+                img {
+                    width: 150px;
+                }
+            }
+        }
+    }
+
+    .scroll-content {
+        margin-top: 150px !important;
+
+        .container {
+            &:last-child {
+                border-bottom: 5px solid $bg-color;
+                padding-bottom: 10px;
+
+            }
+        }
+    }
+
+    .container {
+        margin-top: 20px;
+        padding: 0 18px;
+        width: 100%;
+
+        h4 {
+            color: lighten($text-light, 25%);
+            margin: 0;
+            font-size: 1.15rem;
+            margin-bottom: 5px;
+            letter-spacing: .5px;
+        }
+
+        .row {
+            margin: 0 -4px;
+            align-items: flex-end;
+
+            h2 {
+                margin: 0;
+                font-size: 1.9rem;
+                font-weight: 500;
+                margin-bottom: 3px;
+                line-height: 24px;
+            }
+
+            h3 {
+                margin: 0;
+                font-size: 1.6rem;
+                font-weight: 500;
+            }
+
+            ion-icon {
+                font-size: 1.6rem;
+                display: inline;
+                color: $theme-color;
+                margin-right: 5px;
+            }
+
+            .map {
+                //margin-top: 24px;
+                height: 69px;
+                border-radius: 4px;
+
+                img {
+                    width: auto;
+                    height: auto;
+                }
+
+                ion-icon {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    margin: auto !important;
+                    color: $white;
+                    background: $theme-color;
+                    border-radius: 50%;
+                    text-align: center;
+                    width: 27px;
+                    height: 27px;
+                    font-size: 1.5rem;
+                    line-height: 26px;
+                    
+
+
+                }
+            }
+
+            .col {
+                &.trevl_time {
+                    position: relative;
+                    overflow: hidden;
+                    max-width: 82px;
+                    height: 100%;
+
+
+                    &::before {
+                        content: '';
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        right: 0;
+                        bottom: 0;
+                        width: 1px;
+                        height: 90%;
+                        background: $bg-color;
+                        margin: auto;
+
+                    }
+
+                    h3 {
+                        color: $theme-color;
+                        width: 100%;
+                        text-align: center;
+                        border: 1px solid $theme-color;
+                        border-radius: 3px;
+                        font-size: 1.2rem;
+                        font-weight: 500;
+                        padding: 3px 0 3px 0;
+                        margin-top: 41px;
+                        background: $white;
+                        margin-bottom: 0;
+                        position: relative;
+                        z-index: 99;
+                    }
+                }
+            }
+        }
+    }
+
+    .footer {
+        .btn_box {
+            background: $theme-color;
+            height: 50px;
+            padding: 0 18px;
+            margin-top: 10px;
+
+            h2 {
+                margin: 0;
+                font-size: 1.8rem;
+                font-weight: 400;
+                color: $white;
+                line-height: 50px;
+
+                span {
+                    font-size: 1.9rem;
+                }
+
+            }
+        }
+    }
+}

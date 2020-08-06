@@ -1,0 +1,93 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title></ion-title>
+    </ion-navbar>
+    <h2 class="d-flex">{{'payable_amount' | translate}} <span class="end">RM 30</span></h2>
+</ion-header>
+
+<ion-content>
+    <div class="payment_options ">
+        <div class="container">
+            <h2>{{'select_payment_method' | translate}}</h2>
+        </div>
+        <ion-list no-lines no-margin radio-group>
+            <ion-scroll scrollX="true">
+                <ion-item>
+                    <ion-label text-center>
+                        <img src="assets/imgs/card.png">
+                        <h3>{{'credit_card' | translate}}</h3>
+                    </ion-label>
+                    <ion-radio value="card" item-start></ion-radio>
+                </ion-item>
+                <ion-item>
+                    <ion-label text-center>
+                        <img src="assets/imgs/paypal.png">
+                        <h3>{{'pay_pal' | translate}}</h3>
+                    </ion-label>
+                    <ion-radio value="pay_pal" item-start></ion-radio>
+                </ion-item>
+                <ion-item>
+                    <ion-label text-center>
+                        <img src="assets/imgs/payU.png">
+                        <h3>{{'pay_u_money' | translate}}</h3>
+                    </ion-label>
+                    <ion-radio value="pay_u_money" item-start></ion-radio>
+                </ion-item>
+                
+                  <ion-item>
+                    <ion-label text-center>
+                        <img src="assets/imgs/card.png">
+                        <h3>{{'credit_card' | translate}}</h3>
+                    </ion-label>
+                    <ion-radio value="card1" item-start></ion-radio>
+                </ion-item>
+                <ion-item>
+                    <ion-label text-center>
+                        <img src="assets/imgs/paypal.png">
+                        <h3>{{'pay_pal' | translate}}</h3>
+                    </ion-label>
+                    <ion-radio value="pay_pal1" item-start></ion-radio>
+                </ion-item>
+                <ion-item>
+                    <ion-label text-center>
+                        <img src="assets/imgs/payU.png">
+                        <h3>{{'pay_u_money' | translate}}</h3>
+                    </ion-label>
+                    <ion-radio value="pay_u_money1" item-start></ion-radio>
+                </ion-item>
+            </ion-scroll>
+        </ion-list>
+    </div>
+    <div class="form">
+        <ion-list no-lines>
+            <ion-item>
+                <ion-label>{{'card_number' | translate}}</ion-label>
+                <ion-input type="text" value="987 543 1098 7654"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label>{{'name_on_card' | translate}}</ion-label>
+                <ion-input type="text" value="Sam Smith"></ion-input>
+            </ion-item>
+            <ion-row>
+                <ion-col col-6>
+                    <ion-item>
+                        <ion-label>{{'expiry_date' | translate}}</ion-label>
+                        <ion-input type="text" value="12/23"></ion-input>
+                    </ion-item>
+                </ion-col>
+                <ion-col col-6>
+                    <ion-item>
+                        <ion-label>{{'security_code' | translate}}</ion-label>
+                        <ion-input type="text" value="779"></ion-input>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+        </ion-list>
+    </div>
+</ion-content>
+<ion-footer no-border>
+    <button ion-button no-margin full class="btn" (click)="booked()">{{'pay_now' | translate}}</button>
+</ion-footer>

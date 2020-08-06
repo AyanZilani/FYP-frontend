@@ -1,0 +1,23 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>{{'select_end_date' | translate}}</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content class="bg-color">
+    <div class="calendar_box">
+        <ion-calendar #calendar lang="en"></ion-calendar>
+    </div>
+
+    <div class="select_date">
+        <h2>{{'select_trip_end_time' | translate}}</h2>
+        <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A" [(ngModel)]="event.timeStarts"></ion-datetime>
+        <h3>{{'tab_to_select' | translate}}</h3>
+    </div>
+</ion-content>
+<ion-footer no-border>
+   <button ion-button  no-margin full class="btn" (click)="home()">{{'continue' | translate}}</button>
+</ion-footer>

@@ -1,0 +1,92 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title></ion-title>
+    </ion-navbar>
+    <ion-row>
+        <ion-col col-6>
+            <h2>Bike</h2>
+            <h3>3</h3>
+        </ion-col>
+        <ion-col col-6 text-end>
+            <img src="assets/imgs/Bike_image 3.jpg">
+        </ion-col>
+    </ion-row>
+</ion-header>
+
+<ion-content>
+    <div class="container">
+        <ion-row>
+            <ion-col col>
+                <h4>{{'trip_start' | translate}}</h4>
+                <h2>Sat, 15 Jun </h2>
+                <h3>5:30 pm</h3>
+            </ion-col>
+            <ion-col col class="trevl_time">
+                <h3>77 Hours</h3>
+            </ion-col>
+            <ion-col col text-end>
+                <h4>{{'trip_end' | translate}}</h4>
+                <h2>Sat, 18 Jun </h2>
+                <h3>10:30 pm</h3>
+            </ion-col>
+        </ion-row>
+    </div>
+    <div class="container">
+        <h4>{{'pick_up_location' | translate}}</h4>
+        <ion-row>
+            <ion-col col-7>
+                <h2>Campus Bike UTM<br> Faculty of Alam Bina parking</h2>
+            </ion-col>
+
+            <ion-col col-5>
+                <div class="map center_img">
+                    <img src="assets/imgs/map.png" class="crop_img">
+                    <ion-icon class="zmdi zmdi-car" text-center></ion-icon>
+                </div>
+            </ion-col>
+        </ion-row>
+    </div>
+
+   <!---- <div class="container">
+        <h4>{{'pick_up_location' | translate}}</h4>
+        <ion-row>
+            <ion-col col-3>
+                <h2 class="">
+                    <ion-icon class="zmdi zmdi-gas-station"></ion-icon>
+                    Fuel
+                </h2>
+            </ion-col>
+            <ion-col col-6 text-center>
+                <h2 class="">
+                    <ion-icon class="zmdi zmdi-badge-check"></ion-icon>
+                    Insurance
+                </h2>
+            </ion-col>
+            <ion-col col-3 text-end>
+                <h2 class="">
+                    <ion-icon class="zmdi zmdi-assignment"></ion-icon>
+                    Taxes
+                </h2>
+            </ion-col>
+        </ion-row>
+    </div>-->
+</ion-content>
+<ion-footer no-border>
+    <div class="container">
+        <ion-row>
+            <ion-col col-12>
+                <h4>{{'amount_breakup' | translate}}</h4>
+                <h2 class="d-flex"> {{'base_fare' | translate}}<span class="end">RM 20 </span></h2>
+                <h2 class="d-flex"> {{'Extra hours' | translate}}<span class="end">RM 10 </span></h2>
+                <!--<h2 class="d-flex">{{'taxes' | translate}}<span class="end">$ 90.00 </span></h2>-->
+            </ion-col>
+        </ion-row>
+    </div>
+
+    <div class="btn_box" (click)="payment()">
+        <h2 class="d-flex">{{'proceed_to_payment' | translate}}<span class="end">RM 30 </span></h2>
+    </div>
+</ion-footer>

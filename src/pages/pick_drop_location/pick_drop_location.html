@@ -1,0 +1,65 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>{{'select_pick_drop_location' | translate}}</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <div class="container">
+        <ion-list no-lines radio-group>
+            <ion-item>
+                <ion-label class="d-flex">
+                    <ion-icon class="zmdi  zmdi-car"></ion-icon>
+                    Old city church, Manhattan, New York
+                </ion-label>
+                <ion-radio checked="true" value="1" item-start></ion-radio>
+            </ion-item>
+
+            <ion-item>
+                <ion-label class="d-flex">
+                    <ion-icon class="zmdi  zmdi-car"></ion-icon>
+                    World trade park, Manhattan, New York
+                </ion-label>
+                <ion-radio  value="2" item-start></ion-radio>
+            </ion-item>
+
+            <ion-item>
+                <ion-label class="d-flex">
+                    <ion-icon class="zmdi  zmdi-car"></ion-icon>
+                    Adele palace, Manhattan, New York
+                </ion-label>
+                <ion-radio  value="3" item-start></ion-radio>
+            </ion-item>
+
+            <ion-item>
+                <ion-label class="d-flex">
+                    <ion-icon class="zmdi  zmdi-car"></ion-icon>
+                    MG road stature, Manhattan, New York
+                </ion-label>
+                <ion-radio  value="4" item-start></ion-radio>
+            </ion-item>
+
+            <ion-item>
+                <ion-label class="d-flex">
+                    <ion-icon class="zmdi  zmdi-car"></ion-icon>
+                    Silver leaf hotel, Manhattan, New York
+                </ion-label>
+                <ion-radio  value="6" item-start></ion-radio>
+            </ion-item>
+
+            <ion-item>
+                <ion-label class="d-flex">
+                    <ion-icon class="zmdi  zmdi-car"></ion-icon>
+                    Airport road, Manhattan, New York
+                </ion-label>
+                <ion-radio  value="7" item-start></ion-radio>
+            </ion-item>
+        </ion-list>
+    </div>
+</ion-content>
+<ion-footer no-border>
+   <button ion-button  no-margin full class="btn" (click)="home()">{{'continue' | translate}}</button>
+</ion-footer>

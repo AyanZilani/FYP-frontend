@@ -1,0 +1,127 @@
+<ion-header class="theme_header bg-transparent">
+    <ion-navbar>
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>
+            {{'app_title1' | translate}}<span>{{'app_title2' | translate}}</span>
+        </ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <div class="container">
+        <div class="banner">
+            <p>{{'banner_text1' | translate}}<br>{{'banner_text2' | translate}}<br>{{'banner_text3' | translate}}</p>
+        </div>
+
+        <ion-list no-lines>
+            <ion-item (click)="select_city()">
+                <h3>{{'Location' | translate}}</h3>
+                <h2 class="d-flex">
+                    <ion-icon class="zmdi zmdi-pin"></ion-icon>
+                    Campus Bike UTM, Faculty ALam Bina parking
+                </h2>
+            </ion-item>  
+
+            <ion-item (click)="select_start_date()">
+                <h3>{{'start_trip' | translate}}</h3>
+                <h2 class="d-flex">
+                    <ion-icon class="zmdi zmdi-calendar-alt"></ion-icon>
+                    15 Jun, 2019 5:30 pm
+                </h2>
+            </ion-item>
+
+            <ion-item (click)="select_end_date()">
+                <h3>{{'end_trip' | translate}}</h3>
+                <h2 class="d-flex">
+                    <ion-icon class="zmdi zmdi-calendar-alt"></ion-icon>
+                    18 Jun, 2019 10:30 pm
+                </h2>
+            </ion-item>
+            <button ion-button block icon-start class="btn" (click)="car_list()">{{'search_cars' | translate}}</button>
+        </ion-list>
+    </div>
+
+   <!---- <div class="latest_offer">
+        <h2>{{'latest_offer' | translate}}</h2>
+        <ion-scroll scrollX="true">
+            <div class="item_scroll">
+                <div class="item_bg center_img">
+                    <img src="assets/imgs/1.jpg" class="crop_img">
+                </div>
+                <div class="text_box">
+                    <h2>20% off</h2>
+                    <h3>With HDXC Bank</h3>
+                </div>
+            </div>
+            <div class="item_scroll" text-end>
+                <div class="item_bg center_img">
+                    <img src="assets/imgs/2.jpg" class="crop_img">
+                </div>
+                <div class="text_box">
+                    <h2>50%</h2>
+                    <h3>Cashback</h3>
+                    <p>On frist booking</p>
+                </div>
+            </div>
+            <div class="item_scroll">
+                <div class="item_bg center_img">
+                    <img src="assets/imgs/1.jpg" class="crop_img">
+                </div>
+                <div class="text_box">
+                    <h2>20% off</h2>
+                    <h3>With HDXC Bank</h3>
+                </div>
+            </div>
+            <div class="item_scroll" text-end>
+                <div class="item_bg center_img">
+                    <img src="assets/imgs/2.jpg" class="crop_img">
+                </div>
+                <div class="text_box">
+                    <h2>50%</h2>
+                    <h3>Cashback</h3>
+                    <p>On frist booking</p>
+                </div>
+            </div>
+            <div class="item_scroll">
+                <div class="item_bg center_img">
+                    <img src="assets/imgs/1.jpg" class="crop_img">
+                </div>
+                <div class="text_box">
+                    <h2>20% off</h2>
+                    <h3>With HDXC Bank</h3>
+                </div>
+            </div>
+            <div class="item_scroll" text-end>
+                <div class="item_bg center_img">
+                    <img src="assets/imgs/2.jpg" class="crop_img">
+                </div>
+                <div class="text_box">
+                    <h2>50%</h2>
+                    <h3>Cashback</h3>
+                    <p>On frist booking</p>
+                </div>
+            </div>
+            <div class="item_scroll">
+                <div class="item_bg center_img">
+                    <img src="assets/imgs/1.jpg" class="crop_img">
+                </div>
+                <div class="text_box">
+                    <h2>20% off</h2>
+                    <h3>With HDXC Bank</h3>
+                </div>
+            </div>
+            <div class="item_scroll" text-end>
+                <div class="item_bg center_img">
+                    <img src="assets/imgs/2.jpg" class="crop_img">
+                </div>
+                <div class="text_box">
+                    <h2>50%</h2>
+                    <h3>Cashback</h3>
+                    <p>On frist booking</p>
+                </div>
+            </div>
+        </ion-scroll>
+    </div> -->
+</ion-content>

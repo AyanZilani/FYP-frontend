@@ -1,0 +1,87 @@
+page-pick_drop_location {
+    .container {
+        .list {
+           margin-top: 17px;
+
+            .item {
+                padding: 0;
+              background: lighten($bg-color, 1%);
+                position: relative;
+                border: 1px solid $theme-color !important;
+                border-radius: 4px;
+                overflow: hidden;
+                height: 62px;
+                margin-bottom: 13px;
+
+                &::before {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    width: 0%;
+                    height: 0%;
+                    margin: auto;
+                    background: lighten($theme-color, 30%);
+                    opacity: .5;
+                    transition: all .5s;
+                    border-radius: 4px;
+                }
+
+                .radio {
+                    margin: 0;
+                    width: 100%;
+                    height: 100%;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    z-index: 99;
+
+                    .radio-icon {
+                        display: none;
+                    }
+                }
+
+                .item-inner {
+                    padding: 0;
+
+                    .label {
+                        margin: 0;
+                        width: 100%;
+                        height: 100%;
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        text-align: center;
+                        color: darken($theme-color, 100%);
+                        line-height: 62px;
+                        transition: all .5s;
+                        font-size: 1.4rem;
+                        font-weight: 500;
+                        padding: 0 15px;
+
+                        ion-icon {
+                            font-size: 2rem;
+                            margin-right: 15px;
+                               color: darken($theme-color, 0%);
+                        }
+                    }
+                }
+
+                &.item-radio-checked {
+                    &::before {
+                        width: 100%;
+                        height: 100%;
+                        transition: all .5s
+                    }
+
+                    .item-inner .label {
+                        color: $theme-color;
+                        transition: all .5s
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,66 @@
+<ion-menu [content]="content">
+    <ion-header>
+        <div class="profile_box d-flex" menuClose (click)="my_profile()">
+            <div class="profile_img center_img">
+                <img src="assets/imgs/profile_pic.png" class="crop_img">
+            </div>
+            <div class="profile_details">
+                <h2>Sam Smith</h2>
+                <p>{{'view_profile' | translate}}</p>
+            </div>
+        </div>
+        <ion-list no-lines>
+            <ion-item menuClose (click)="my_bookings()" class="active">
+                <ion-avatar item-start>
+                    <ion-icon class="zmdi zmdi-car"></ion-icon>
+                </ion-avatar>
+                <h2>{{'my_bookings' | translate}}</h2>
+            </ion-item>
+        </ion-list>
+    </ion-header>
+
+    <ion-content>
+        <ion-list no-lines>
+            <ion-item menuClose (click)="home()">
+                <ion-avatar item-start>
+                    <ion-icon class="zmdi zmdi-home"></ion-icon>
+                </ion-avatar>
+                <h2>{{'home' | translate}}</h2>
+            </ion-item>
+            <ion-item menuClose (click)="doc_verificatino()">
+                <ion-avatar item-start>
+                    <ion-icon class="zmdi zmdi-badge-check"></ion-icon>
+                </ion-avatar>
+                <h2>{{'doc_verification' | translate}}</h2>
+            </ion-item>
+            <ion-item menuClose (click)="terms_condition()">
+                <ion-avatar item-start>
+                    <ion-icon class="zmdi zmdi-assignment"></ion-icon>
+                </ion-avatar>
+                <h2>{{'terms_condition' | translate}}</h2>
+            </ion-item>
+            <ion-item menuClose (click)="support()">
+                <ion-avatar item-start>
+                    <ion-icon class="zmdi zmdi-email"></ion-icon>
+                </ion-avatar>
+                <h2>{{'need_help' | translate}}</h2>
+            </ion-item>
+            <ion-item menuClose>
+                <ion-avatar item-start>
+                    <ion-icon class="zmdi zmdi-thumb-up"></ion-icon>
+                </ion-avatar>
+                <h2>{{'rate_us' | translate}}</h2>
+            </ion-item>
+            <ion-item menuClose (click)="sign_in()">
+                <ion-avatar item-start>
+                    <ion-icon class="zmdi zmdi-power-setting"></ion-icon>
+                </ion-avatar>
+                <h2>{{'logout' | translate}}</h2>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+
+</ion-menu>
+
+<!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
+<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>
