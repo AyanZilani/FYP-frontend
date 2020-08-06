@@ -1,2 +1,26 @@
+<<<<<<< HEAD
 node_modules
 www/build/*
+=======
+*.csv
+*.dat
+*.iml
+*.log
+*.out
+*.pid
+*.seed
+*.sublime-*
+*.swo
+*.swp
+*.tgz
+*.xml
+.DS_Store
+.idea
+.project
+.strong-pm
+coverage
+node_modules
+npm-debug.log
+www/build/*
+platforms
+>>>>>>> 5269a1d5dad206b8ceca938c9b90df61a6a69b72
