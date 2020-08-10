@@ -7,10 +7,10 @@
     </ion-navbar>
 </ion-header>
 
-<ion-content >
+<ion-content>
     <div class="banner" text-left>
         <img src="assets/imgs/bike rent.png">
-    </div> 
+    </div>
     <div class="socila_section">
         <p> {{'continue_with_social_account' | translate}}</p>
         <ion-row>
@@ -38,7 +38,8 @@
                 <ion-input type="text" value="" [(ngModel)]="login.user_email"></ion-input>
             </ion-item>
             <ion-item class="password">
-                <ion-label class="d-flex">{{'password' | translate}}<span class="end">{{'forgot' | translate}}</span></ion-label>
+                <ion-label class="d-flex">{{'password' | translate}}<span class="end">{{'forgot' | translate}}</span>
+                </ion-label>
                 <ion-input type="password" value="" [(ngModel)]="login.user_password"></ion-input>
             </ion-item>
         </ion-list>

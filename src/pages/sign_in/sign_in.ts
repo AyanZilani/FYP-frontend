@@ -5,8 +5,6 @@ import { EbikeApiProvider } from '../../providers/api/ebike-api';
 import { Sign_upPage } from '../sign_up/sign_up';
 import { HomePage } from '../home/home';
 
-import { HttpClient } from '@angular/common/http';
-
 @Component({
   selector: 'page-sign_in',
   templateUrl: 'sign_in.html'
@@ -15,7 +13,7 @@ export class Sign_inPage {
 
   login: any = { user_email: '', user_password: '' };
 
-  constructor(public navCtrl: NavController, private http: HttpClient, public alrt: AlertController, private api: EbikeApiProvider) { }
+  constructor(public navCtrl: NavController, public alrt: AlertController, private api: EbikeApiProvider) { }
 
   sign_up() {
     this.navCtrl.push(Sign_upPage)
@@ -25,14 +23,16 @@ export class Sign_inPage {
   }
 
   sign_in() {
-    console.log("Signing in ....", this.login);
+    console.log("sign_in > Signing in : this.login:\n", JSON.stringify(this.login));
     this.api.signIn(this.login)
       .subscribe(
         response => {
-          console.log(response);
+          console.log(JSON.stringify(response));
+
           this.navCtrl.push(HomePage)
         },
         error => {
+          console.log(JSON.stringify(error));
           console.log(error); this.alertPopup("Alert", "Login Failed")
         })
 

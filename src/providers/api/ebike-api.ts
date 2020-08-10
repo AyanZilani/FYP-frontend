@@ -8,15 +8,15 @@ export class EbikeApiProvider {
 
     bike: any = { bike_number: '', bike_status: '' };
 
-    baseURL = "http://192.168.43.166:3000/api/";
+    baseURL = "http://192.168.1.21:3000/api/";
 
     constructor(public http: HttpClient) {
-        console.log('EbikeApiProvider initiated!');
+        console.log('------------EbikeApiProvider initiated!---------------');
 
     }
 
     signIn(login) {
-        console.log("Signing in ....", login);
+        console.log(`Signing in ${this.baseURL}Users/login ....`, JSON.stringify(login));
         return this.http.post(this.baseURL + 'Users/login', {
             email: login.user_email,
             password: login.user_password
@@ -61,12 +61,12 @@ export class EbikeApiProvider {
 
     getStartDate(trip) {
 
-        
+
         this.http.get(this.baseURL + this.baseURL + 'startDates')
             .subscribe(
                 (response) => {
                     console.log('got dates');
-                    
+
                 },
                 error => {
                     console.log(error)
