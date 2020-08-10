@@ -8,7 +8,7 @@ export class EbikeApiProvider {
 
     bike: any = { bike_number: '', bike_status: '' };
 
-    baseURL = "http://192.168.1.25:3000/api/";
+    baseURL = "http://192.168.43.166:3000/api/";
 
     constructor(public http: HttpClient) {
         console.log('EbikeApiProvider initiated!');
@@ -57,6 +57,21 @@ export class EbikeApiProvider {
 
     getFetchedData() {
         return this.bike;
+    }
+
+    getStartDate(trip) {
+
+        
+        this.http.get(this.baseURL + this.baseURL + 'startDates')
+            .subscribe(
+                (response) => {
+                    console.log('got dates');
+                    
+                },
+                error => {
+                    console.log(error)
+                }
+            )
     }
 
 }
