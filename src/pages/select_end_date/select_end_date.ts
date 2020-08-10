@@ -21,7 +21,7 @@ export class Select_end_datePage {
   home() {
     console.log("Selecting End date ....", this.trip);
     this.api.selectEndDate(this.trip).subscribe(response => { console.log(response) }, error => { console.log(error) })
-
+    this.api.getStartDate(this.trip)
     // this.http.post('http://localhost:3000/api/endDates', {
     //   endDate: this.trip.endDate,
     // }).subscribe(response => { console.log(response) }, error => { console.log(error) })

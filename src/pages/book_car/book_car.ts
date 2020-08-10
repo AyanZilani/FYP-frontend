@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import moment from "moment";
-
+//import {startDate} from '../select_start_date/select_start_date';
 import { PaymentPage } from '../payment/payment';
 @Component({
   selector: 'page-book_car',
@@ -9,7 +9,7 @@ import { PaymentPage } from '../payment/payment';
 })
 export class Book_carPage {
 
-  startTrip = moment('2020-08-05 18:00:00');
+  startTrip = moment('2020-08-05 14:00:00');
   stopTrip = moment('2020-08-06 14:01:00');
 
   _startedDate = this.startTrip.format('YYYY/MM/DD');
