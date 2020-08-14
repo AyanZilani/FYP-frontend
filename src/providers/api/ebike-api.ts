@@ -1,6 +1,7 @@
 import moment from "moment";
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { CookiesProvider } from "../cookies/cookies";
 
 
 @Injectable()
@@ -8,11 +9,10 @@ export class EbikeApiProvider {
 
     bike: any = { bike_number: '', bike_status: '' };
 
-    baseURL = "http://192.168.1.19:3000/api/";
+    baseURL;
 
-    constructor(public http: HttpClient) {
-        console.log('------------EbikeApiProvider initiated!---------------');
-
+    constructor(public http: HttpClient, public cookies: CookiesProvider) {
+        this.baseURL = cookies.getBaseUrl();
     }
 
     signIn(login) {

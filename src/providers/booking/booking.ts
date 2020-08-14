@@ -1,4 +1,3 @@
-import moment from "moment";
 import { Booking } from '../../models/Booking/Booking';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';

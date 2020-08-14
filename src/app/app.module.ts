@@ -34,6 +34,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { ProvidersSignInSignInProvider } from '../providers/providers-sign-in-sign-in/providers-sign-in-sign-in';
 import { EbikeApiProvider } from '../providers/api/ebike-api';
+import { CookiesProvider } from '../providers/cookies/cookies';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -109,7 +110,8 @@ export function createTranslateLoader(http: HttpClient) {
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     ProvidersSignInSignInProvider,
-    EbikeApiProvider
+    EbikeApiProvider,
+    CookiesProvider
   ]
 })
 export class AppModule { }
