@@ -9,8 +9,8 @@ import { PaymentPage } from '../payment/payment';
 })
 export class Book_carPage {
 
-  startTrip = moment('2020-08-05 14:00:00');
-  stopTrip = moment('2020-08-06 14:01:00');
+  startTrip = moment('2020-08-12 08:30:00');
+  stopTrip = moment('2020-08-13 08:30:00');
 
   _startedDate = this.startTrip.format('YYYY/MM/DD');
   _startedTime = this.startTrip.format('HH:mm:ss');

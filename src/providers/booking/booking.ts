@@ -10,7 +10,7 @@ export class BookingProvider {
 
     booking: Booking = new Booking(2, 1);
 
-    baseURL = "http://192.168.1.21:3000/api/";
+    bookURL = "http://10.216.97.220:3000/api/";
 
     constructor(public http: HttpClient) {
         console.log('------------BookingProvider initiated!---------------');
@@ -25,7 +25,7 @@ export class BookingProvider {
     }
 
     submitBooking() {
-        return this.http.post(this.baseURL + 'bookings', {
+        return this.http.post(this.bookURL + 'bookings', {
             hours: this.booking.hours
         });
     }

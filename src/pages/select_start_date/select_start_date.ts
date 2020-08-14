@@ -1,8 +1,9 @@
 import { EbikeApiProvider } from '../../providers/api/ebike-api';
 
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, AlertController } from 'ionic-angular';
 import { Select_end_datePage } from '../select_end_date/select_end_date';
+
 
 import { HttpClient } from '@angular/common/http';
 import { BookingProvider } from '../../providers/booking/booking';
@@ -17,20 +18,27 @@ export class Select_start_datePage {
   }
 
   trip: any = { startDate: '' };
-  constructor(public navCtrl: NavController, private http: HttpClient, private api: EbikeApiProvider, private booking: BookingProvider) {
+  constructor(public navCtrl: NavController, private http: HttpClient, public alrt: AlertController, private api: EbikeApiProvider, /*private booking: BookingProvider*/) {
 
 
   }
 
   select_end_date() {
     console.log("Selecting Start date ....", this.trip);
-    this.booking.setStartDate(this.trip.startDate);
-    //this.api.selectStartDate(this.trip).subscribe(response => { console.log(response) }, error => { console.log(error) })
+    //this.booking.setStartDate(this.trip.startDate);
+    this.api.selectStartDate(this.trip).subscribe(response => { console.log(response) }, error => { console.log(error); this.alertPopup("Error", "Please select the time and date") })
 
     // this.http.post('http://localhost:3000/api/startDates', {
     //   startDate: moment(this.trip.startDate),
     // }).subscribe(response => { console.log(response) }, error => { console.log(error) })
 
     this.navCtrl.push(Select_end_datePage)
-  }
+  }alertPopup(title: string, Msg: string) {
+    let alrt = this.alrt.create({
+      title: title,
+      subTitle: Msg,
+      buttons: ['OK']
+    });
+    alrt.present();
+}
 }

@@ -19,7 +19,7 @@ export class Sign_upPage {
      
  verification(){
   console.log("Registering user ....", this.register);
-  this.http.post('http://localhost:3000/api/Users',{
+  this.http.post('http://192.168.43.166:3000/api/Users',{
     username: this.register.username,
     email:this.register.email,
     //phone_number: this.register.user_phone_number,

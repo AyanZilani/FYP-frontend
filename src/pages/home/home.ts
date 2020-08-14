@@ -21,7 +21,7 @@ export class HomePage {
 
   // bike: any = { bike_number: '', bike_status: '' };
 
-  constructor(public navCtrl: NavController, private http: HttpClient, private api: EbikeApiProvider, private book: BookingProvider) { }
+  constructor(public navCtrl: NavController, private http: HttpClient, private api: EbikeApiProvider, /*private book: BookingProvider*/) { }
 
 
   select_city() {
@@ -51,8 +51,8 @@ export class HomePage {
     // this.navCtrl.push(Car_listPage)
   }
 
-  submitBooking() {
+  /*submitBooking() {
     this.book.submitBooking().subscribe()
-  }
+  }*/
 
 }

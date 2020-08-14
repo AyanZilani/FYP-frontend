@@ -27,7 +27,9 @@ import { Sign_upPage } from '../pages/sign_up/sign_up';
 import { SupportPage } from '../pages/support/support';
 import { Terms_conditionPage } from '../pages/terms_condition/terms_condition';
 import { VerificationPage } from '../pages/verification/verification';
-
+import { AdminPage } from '../pages/admin/admin';
+import { AddBikePage } from '../pages/add-bike/add-bike';
+import { ReportPage } from '../pages/report/report';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { ProvidersSignInSignInProvider } from '../providers/providers-sign-in-sign-in/providers-sign-in-sign-in';
@@ -58,7 +60,10 @@ export function createTranslateLoader(http: HttpClient) {
     Sign_upPage,
     SupportPage,
     Terms_conditionPage,
-    VerificationPage
+    VerificationPage,
+    AdminPage,
+    ReportPage,
+    AddBikePage
   ],
   imports: [
     BrowserModule,
@@ -94,7 +99,10 @@ export function createTranslateLoader(http: HttpClient) {
     Sign_upPage,
     SupportPage,
     Terms_conditionPage,
-    VerificationPage
+    VerificationPage,
+    AdminPage,
+    ReportPage,
+    AddBikePage
   ],
   providers: [
     StatusBar,

@@ -8,7 +8,7 @@ export class EbikeApiProvider {
 
     bike: any = { bike_number: '', bike_status: '' };
 
-    baseURL = "http://192.168.1.21:3000/api/";
+    baseURL = "http://192.168.1.19:3000/api/";
 
     constructor(public http: HttpClient) {
         console.log('------------EbikeApiProvider initiated!---------------');
