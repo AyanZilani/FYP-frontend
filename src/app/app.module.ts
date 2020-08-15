@@ -30,6 +30,7 @@ import { VerificationPage } from '../pages/verification/verification';
 import { AdminPage } from '../pages/admin/admin';
 import { AddBikePage } from '../pages/add-bike/add-bike';
 import { ReportPage } from '../pages/report/report';
+import {DeleteBikePage} from '../pages/delete-bike/delete-bike'
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { ProvidersSignInSignInProvider } from '../providers/providers-sign-in-sign-in/providers-sign-in-sign-in';
@@ -64,7 +65,8 @@ export function createTranslateLoader(http: HttpClient) {
     VerificationPage,
     AdminPage,
     ReportPage,
-    AddBikePage
+    AddBikePage,
+    DeleteBikePage
   ],
   imports: [
     BrowserModule,
@@ -103,7 +105,8 @@ export function createTranslateLoader(http: HttpClient) {
     VerificationPage,
     AdminPage,
     ReportPage,
-    AddBikePage
+    AddBikePage,
+    DeleteBikePage
   ],
   providers: [
     StatusBar,

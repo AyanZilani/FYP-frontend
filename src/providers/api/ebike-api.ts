@@ -73,5 +73,16 @@ export class EbikeApiProvider {
                 }
             )
     }
+    addBike(add) {
+        return this.http.post(this.baseURL + 'bikes', {
+            bike_number: add.bike_number,
+            bike_status: add.bike_status,
+        });
+    }
+    removeBike(del) {
+        return this.http.delete(this.baseURL + `bikes/${del.id}`, {
+
+        });
+    }
 
 }

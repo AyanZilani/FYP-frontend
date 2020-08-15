@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
+import {AddBikePage} from '../add-bike/add-bike';
+import {ReportPage} from '../report/report';
+import {DeleteBikePage} from '../delete-bike/delete-bike'
 /**
  * Generated class for the AdminPage page.
  *
@@ -20,6 +22,15 @@ export class AdminPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AdminPage');
+  }
+  add_bike() {
+    this.navCtrl.push(AddBikePage)
+  }
+  delete_bike() {
+    this.navCtrl.push(DeleteBikePage)
+  }
+  viewReport() {
+    this.navCtrl.push(ReportPage)
   }
 
 }

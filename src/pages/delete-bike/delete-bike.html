@@ -15,14 +15,13 @@
       <ion-list no-lines>
           <ion-item>
               <ion-label>{{'Bike Number' | translate}}</ion-label>
-              <ion-input type="text" value="" [(ngModel)]="add.bike_number"></ion-input>
+              <ion-input type="text" value="" [(ngModel)]="del.id"></ion-input>
           </ion-item>
           <ion-item >
             <br>
-              <ion-label class="d-flex">{{'Bike Status' | translate}}</ion-label>
-              <ion-input type="text" value="" [(ngModel)]="add.bike_status"></ion-input>
+             
           </ion-item>
-          <button ion-button full clear no-margin class="btn" (click)="addition()">{{'Add Bike' | translate}}</button>
+          <button ion-button full clear no-margin class="btn" (click)="del_bike()">{{'Delete Bike' | translate}}</button>
       </ion-list>
   </div>
 </ion-content>

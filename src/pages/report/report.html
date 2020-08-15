@@ -1,18 +1,48 @@
-<!--
-  Generated template for the ReportPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-
   <ion-navbar>
-    <ion-title>report</ion-title>
+      <button ion-button menuToggle>
+          <ion-icon name="menu"></ion-icon>
+      </button>
+      <ion-title>{{'my_bookings' | translate}}</ion-title>
   </ion-navbar>
-
 </ion-header>
 
-
-<ion-content padding>
-
+<ion-content class="bg-color">
+  <div class="container">
+      <ion-list no-lines no-margin>
+          <ion-item>
+              <ion-row>
+                  <ion-col col-8>
+                      <h2>Bike 3</h2>
+                      <h5>Booking ID CZ22140</h5>
+                      <p class="d-flex">
+                          <ion-icon class="zmdi zmdi-pin"></ion-icon>
+                          Campus Bike UTM, Faculty Alam Bina parking
+                      </p>
+                  </ion-col>
+                  <ion-col col-4>
+                      <div class="car_img">
+                          <img src="assets/imgs/Bike_image 1.jpg">
+                      </div>
+                  </ion-col>
+              </ion-row>
+              <ion-row>
+                  <ion-col col-4>
+                      <h5>{{'trip_start' | translate}}</h5>
+                      <p>Sunday, 16 August, 10:30 am</p>
+                  </ion-col>
+                  <ion-col col-4>
+                      <h5>{{'trip_end' | translate}}</h5>
+                      <p>Monday, 17 August, 10:30 am</p>
+                  </ion-col>
+                  <ion-col col-4 class="payment_type">
+                      <h5>{{'paid_via' | translate}} Cash</h5>
+                      <p>Rm30.00</p>
+                  </ion-col>
+              </ion-row>
+          </ion-item>
+          
+          
+      </ion-list>
+  </div>
 </ion-content>

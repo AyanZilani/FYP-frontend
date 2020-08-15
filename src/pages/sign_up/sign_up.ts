@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular'
+import { NavController, AlertController } from 'ionic-angular'
 //import { VerificationPage } from '../verification/verification';
 
 import { HttpClient } from '@angular/common/http';
-import { HomePage } from '../home/home';
+import { Sign_inPage } from '../sign_in/sign_in';
 
 @Component({
   selector: 'page-sign_up',
@@ -12,7 +12,7 @@ import { HomePage } from '../home/home';
 export class Sign_upPage {
 
   register: any = {username:'', email:'', password:''};
-  constructor(public navCtrl: NavController, private http: HttpClient) {
+  constructor(public navCtrl: NavController, private http: HttpClient, public alrt: AlertController) {
     
 
   }
@@ -24,10 +24,21 @@ export class Sign_upPage {
     email:this.register.email,
     //phone_number: this.register.user_phone_number,
     password:this.register.password
-  }).subscribe(response => {console.log(response)}, error => {console.log(error)})
-  this.navCtrl.push(HomePage);
+    
+  }).subscribe(response => {console.log(response)
+    this.navCtrl.push(Sign_inPage)
+    }, error => {console.log(error),this.alertPopup("Error!!!", "Please fill up all the required fields.")})
+ // this.navCtrl.push(HomePage);
 
   } 
+  alertPopup(title: string, Msg: string) {
+    let alrt = this.alrt.create({
+      title: title,
+      subTitle: Msg,
+      buttons: ['OK']
+    });
+    alrt.present();
+  }
  sign_up(){
   
  }

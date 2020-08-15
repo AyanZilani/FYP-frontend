@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angu
 import { EbikeApiProvider } from '../../providers/api/ebike-api'
 import {AdminPage} from '../admin/admin'
 /**
- * Generated class for the AddBikePage page.
+ * Generated class for the DeleteBikePage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -11,25 +11,24 @@ import {AdminPage} from '../admin/admin'
 
 @IonicPage()
 @Component({
-  selector: 'page-add-bike',
-  templateUrl: 'add-bike.html',
+  selector: 'page-delete-bike',
+  templateUrl: 'delete-bike.html',
 })
-export class AddBikePage {
-  add: any = { bike_number:'', bike_status:''};
+export class DeleteBikePage {
+  del: any = { id:''};
   constructor(public navCtrl: NavController, public navParams: NavParams, private api: EbikeApiProvider, public alrt: AlertController) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad AddBikePage');
+    console.log('ionViewDidLoad DeleteBikePage');
   }
+  del_bike(){
+    console.log("del bikes ....", this.del);
 
-  addition(){
-    console.log("Adding bikes ....", this.add);
-
-    this.api.addBike(this.add).subscribe(
+    this.api.removeBike(this.del).subscribe(
       response => {
         console.log(response)
-        this.alertPopup("Success", "You have added bike successfully!!!")
+        this.alertPopup("Success", "You have deleted bike successfully!!!")
       },
       error => {
         console.log(error);

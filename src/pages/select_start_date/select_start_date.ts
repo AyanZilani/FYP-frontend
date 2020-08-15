@@ -30,6 +30,7 @@ export class Select_start_datePage {
     this.api.selectStartDate(this.trip).subscribe(
       response => {
         console.log(response)
+        this.navCtrl.push(Select_end_datePage);
       },
       error => {
         console.log(error);
@@ -37,9 +38,10 @@ export class Select_start_datePage {
       }
     );
 
-    this.navCtrl.push(Select_end_datePage);
+    
 
-  } alertPopup(title: string, Msg: string) {
+  } 
+    alertPopup(title: string, Msg: string) {
     let alrt = this.alrt.create({
       title: title,
       subTitle: Msg,

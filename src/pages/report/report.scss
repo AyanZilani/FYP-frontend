@@ -1,3 +1,84 @@
 page-report {
 
+    .container {
+        width: calc(100% - 15px);
+        margin-top: 13px;
+
+        .list {
+            margin-bottom: 70px !important;
+
+            .item {
+                padding: 0;
+                border-radius: 3px;
+                padding: 6px 7px 6px 7px;
+                margin-bottom: 7px;
+
+                .item-inner {
+                    padding: 0;
+
+                    .label {
+                        margin: 0;
+
+                        .row {
+                            align-items: flex-end;
+
+                            .col {
+                                h2 {
+                                    font-weight: 500;
+                                    font-size: 1.5rem;
+                                    letter-spacing: .5px;
+                                    margin: 0;
+                                }
+
+                                h5 {
+                                    color: lighten($text-light, 30%);
+                                    margin: 0;
+                                    font-size: 1rem;
+                                    font-weight: 500;
+                                    margin-top: 3px;
+                                    margin-bottom: 7px;
+                                    letter-spacing: .5px;
+                                }
+
+                                p {
+                                    font-size: 1.05rem;
+                                    font-weight: 700;
+                                    color: darken($text-light, 100%);
+                                    white-space: nowrap;
+                                    text-overflow: ellipsis;
+                                    overflow: hidden;
+
+
+                                    ion-icon {
+                                        color: $theme-color;
+                                        font-size: 1.2rem;
+                                        margin-right: 5px;
+                                    }
+                                }
+
+                                .car_img {
+                                    width: 100%;
+                                    max-width: 103px;
+                                    height: 100%;
+                                    margin-left: auto;
+
+                                    img {
+                                        position: relative;
+                                        top: 5px;
+                                    }
+                                }
+
+                                &.payment_type {
+                                    p {
+                                        color: $theme-color;
+                                    }
+                                }
+
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

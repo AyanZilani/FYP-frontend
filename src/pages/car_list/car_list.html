@@ -7,13 +7,13 @@
     </ion-navbar>
     <ion-row>
         <ion-col col-5 text-start>
-            <p>{{startDate}}</p>
+            <p>Sun, 16 August, 10:00 am</p>
         </ion-col>
         <ion-col col-2 text-center>
             <ion-icon class="zmdi zmdi-arrow-right"></ion-icon>
         </ion-col>
         <ion-col col-5 text-end>
-            <p>Tue, 18 Jun, 10:30 pm</p>
+            <p>Monday, 16 August, 10:00 am</p>
         </ion-col>
     </ion-row>
 </ion-header>
@@ -25,7 +25,9 @@
                 <ion-row>
                     <ion-col col-8>
                         <h2>Bike {{item.bike_number}}</h2>
-                       <!---- <h5>5 Seater | White</h5>-->
+                       <br>
+                        <h2>Bike id {{item.id}}</h2><br> 
+                        <!---- <h5>5 Seater | White</h5>-->
                         <p class="d-flex">
                             <ion-icon class="zmdi zmdi-pin"></ion-icon>
                             Campus Bike UTM, Faculty Alam Bina parking
@@ -35,10 +37,9 @@
                             <h3 class="without_fuel">{{bike.bike_status}}
                                 <span>Available</span>
                             </h3>
-                          <!----  <h3 class="with_fuel">$150.00
-                                <span> With fuel</span>
-                            </h3>-->
+                            
                         </div>
+                        
                     </ion-col>
                     <ion-col col-4>
                         <div class="car_img">
